@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BattleJop.Api.Application.Services.Tournament;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace BattleJop.Api.Application.Extensions;
@@ -7,7 +8,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddMediatR(option => option.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddScoped<ITournamentService, TournamentService>();
 
         return services;
     }
