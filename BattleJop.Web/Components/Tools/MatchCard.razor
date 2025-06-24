@@ -1,0 +1,189 @@
+﻿@using BattleJop.Api.Domain.TournamentAggregate
+<Card TextAlignment="Alignment.Center">
+    <CardBody>
+        <div class="container">
+            <div class="team">
+                <p>@Match.Teams.ToArray()[0].Name</p>
+                @* <p>@Match.Teams.ToArray()[0].Players.ToArray()[0].Name</p> *@
+                @* <p>@Match.Teams.ToArray()[0].Players.ToArray()[1].Name</p> *@
+            </div>
+            <div class="score">
+                @ScoreA - @ScoreB
+            </div>
+            <div class="team">
+                <p>@Match.Teams.ToArray()[1].Name</p>
+                @* <p>@Match.Teams.ToArray()[1].Players.ToArray()[0].Name</p> *@
+                @* <p>@Match.Teams.ToArray()[1].Players.ToArray()[1].Name</p> *@
+            </div>
+        </div>
+        @switch (_matchState)
+        {
+            case MatchState.WaintingForStart:
+                <Button Color="ButtonColor.Success" To="#" Type="@ButtonType.Button"
+                        @onclick="@(() => UpdateMatchState(MatchState.InProgress))">
+                    Commencer le match
+                </Button>
+                break;
+            case MatchState.InProgress:
+                <Button To="#" Type="@ButtonType.Button" Color="ButtonColor.Light"
+                        @onclick="@OnShowModalClick">
+                    Saisir le score
+                </Button>
+                break;
+        }
+
+    </CardBody>
+</Card>
+
+<Modal @ref="_modal" IsVerticallyCentered="true" IsScrollable="true" ShowCloseButton="false">
+    <BodyTemplate>
+        <div class="wrapper">
+            <div></div>
+            <div>@Match.Teams.ToArray()[0].Name</div>
+            <div>VS.</div>
+            <div>@Match.Teams.ToArray()[1].Name</div>
+            <div>Score</div>
+            <div>
+                <NumberInput TValue="int" @bind-Value="@ScoreA" Max="13" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()"/>
+            </div>
+            <div>-</div>
+            <div>
+                <NumberInput TValue="int" @bind-Value="@ScoreB" Max="13" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()"/>
+            </div>
+            <div>Palets Restant</div>
+            <div>
+                <NumberInput TValue=" int" @bind-Value="@RemainingPuckA" Max="5" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()"/>
+            </div>
+            <div>-</div>
+            <div>
+                <NumberInput TValue="int" @bind-Value="@RemainingPuckB" Max="5" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()"/>
+            </div>
+        </div>
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Light" Type="ButtonType.Submit" @onclick="@OnHideModalClick">Clôturer le match
+        </Button>
+    </FooterTemplate>
+</Modal>
+
+<style>
+    .wrapper {
+        display: grid;
+        grid-template-columns: 1fr 2fr 0.5fr 2fr;
+        align-items: center;
+        text-align: center;
+        row-gap: 0.5rem;
+    }
+
+    .wrapper div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wrapper input {
+        max-width: 4rem;
+        text-align: center;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+    }
+    
+    .card-body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .score {
+        font-size: xx-large;
+        padding: 0 1rem;
+        width: 50%;
+    }
+
+    .team {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 25%;
+    }
+
+    p {
+        margin: 0.2rem 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    Button {
+        margin-top: 1rem;
+        width: fit-content;
+    }
+</style>
+
+@code {
+    [Parameter] public required Match Match { get; set; }
+    [Parameter] public required int ScoreA { get; set; }
+    [Parameter] public required int ScoreB { get; set; }
+    public int RemainingPuckA { get; set; }
+    public int RemainingPuckB { get; set; }
+
+    private MatchState _matchState = MatchState.WaintingForStart;
+
+    public enum MatchState
+    {
+        WaintingForStart = 0,
+        InProgress = 1,
+        Ended = 2
+    }
+
+    private Modal _modal;
+
+    private void UpdateMatchState(MatchState state)
+    {
+        _matchState = state;
+    }
+
+    private async Task OnShowModalClick()
+    {
+        await _modal.ShowAsync();
+    }
+
+    private async Task OnHideModalClick()
+    {
+        if (IsScoresCorrect() && IsRemainingPuckCorrect())
+        {
+            UpdateMatchState(MatchState.Ended);
+            await _modal.HideAsync();
+        }
+    }
+
+    private bool IsScoresCorrect()
+    {
+        return (ScoreA == 13 || ScoreB == 13) && (ScoreA is >= 0 and < 13 || ScoreB is >= 0 and < 13);
+    }
+
+    private bool IsRemainingPuckCorrect()
+    {
+        return RemainingPuckA is >= 0 and <= 5 && RemainingPuckB is >= 0 and <= 5;
+    }
+
+}

@@ -1,0 +1,45 @@
+﻿@page "/tournoi"
+@using BattleJop.Api.Domain.TournamentAggregate
+@using BattleJop.Web.Components.Tools
+@rendermode InteractiveServer
+@inject TournamentApiClient TournamentApi
+
+<PageTitle>Tournoi</PageTitle>
+
+<h1>Manche @_round.RunningOrder</h1>
+
+<div class="round-grid">
+    @foreach (var match in _round.Matchs)
+    {
+        <MatchCard Match="match" ScoreA="0" ScoreB="0"></MatchCard>
+    }
+</div>
+
+<style>
+    h1 {
+        text-align: center;
+        font-size: xx-large;
+    }
+    
+    .round-grid{
+        display: grid;
+        gap: 1rem;
+    }
+
+    @@media screen and (min-width: 1000px) {
+        .round-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+    }
+</style>
+
+@code
+{
+    private Round _round = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _round = await TournamentApi.GetCurrentRound();
+    }
+}
