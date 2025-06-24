@@ -48,6 +48,11 @@ public class TournamentService : ITournamentService
         throw new NotImplementedException();
     }
 
+    public Task StartAsync(Guid id, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Domain.TournamentAggregate.Tournament> UpdateAsync(string name, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

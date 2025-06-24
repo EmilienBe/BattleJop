@@ -7,4 +7,5 @@ public interface ITournamentService
     Task<ICollection<Domain.TournamentAggregate.Tournament>> GetAllAsync(CancellationToken cancellationToken);
     Task<Domain.TournamentAggregate.Tournament> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task StartAsync(Guid id, CancellationToken cancellationToken);
 }
