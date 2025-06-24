@@ -87,7 +87,7 @@ public class BattleJopCommandDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         //var connexionString = Environment.GetEnvironmentVariable(EnvironmentVariable.BATTLE_JOP_DB);
-        var connexionString = "User ID=postgres;Password=azerty;Host=localhost;Port=5432;Database=BattleJopDb;";
+        var connexionString = "User ID=postgres;Password=mysecretpassword;Host=localhost;Port=5432;Database=BattleJopDb;";
         optionsBuilder
             .UseNpgsql(connexionString)
             .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll);

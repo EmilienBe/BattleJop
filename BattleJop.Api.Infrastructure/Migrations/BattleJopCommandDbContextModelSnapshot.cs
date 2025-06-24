@@ -29,9 +29,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("timezone('utc', now())");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Desactivated")
                         .ValueGeneratedOnAdd()
@@ -39,7 +37,6 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasDefaultValueSql("false");
 
                     b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("RoundId")
@@ -86,9 +83,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("timezone('utc', now())");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Desactivated")
                         .ValueGeneratedOnAdd()
@@ -96,7 +91,6 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasDefaultValueSql("false");
 
                     b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -120,9 +114,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("timezone('utc', now())");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Desactivated")
                         .ValueGeneratedOnAdd()
@@ -130,7 +122,6 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasDefaultValueSql("false");
 
                     b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("RunningOrder")
@@ -153,9 +144,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("timezone('utc', now())");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Desactivated")
                         .ValueGeneratedOnAdd()
@@ -163,7 +152,6 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasDefaultValueSql("false");
 
                     b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
@@ -187,9 +175,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("timezone('utc', now())");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Desactivated")
                         .ValueGeneratedOnAdd()
@@ -197,7 +183,6 @@ namespace BattleJop.Api.Infrastructure.Migrations
                         .HasDefaultValueSql("false");
 
                     b.Property<DateTime>("LastUpdated")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
