@@ -21,12 +21,9 @@ namespace BattleJop.Web.Components.Modals
         private int EditableScoreB;
 
         private Modal InternalModal;
-        public EditScoreModal()
-        {
-        }
         protected override void OnInitialized()
         {
-            EditableScoreA = ScoreA; 
+            EditableScoreA = ScoreA;
             EditableScoreB = ScoreB;
         }
 

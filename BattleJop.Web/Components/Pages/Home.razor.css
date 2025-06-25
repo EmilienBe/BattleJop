@@ -1,0 +1,32 @@
+﻿.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh
+}
+
+
+.button-list {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .button-list button {
+        width: 18rem;
+    }
+
+.title {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 6rem
+}
+
+.spacer {
+    height: 1.5rem;
+}

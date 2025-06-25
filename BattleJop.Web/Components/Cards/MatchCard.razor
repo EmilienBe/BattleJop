@@ -16,20 +16,24 @@
                 @* <p>@Match.Teams.ToArray()[1].Players.ToArray()[1].Name</p> *@
             </div>
         </div>
-        <div class="space"></div>
         @switch (_matchState)
         {
             case MatchState.WaintingForStart:
-                <Button class="match-button" Color="ButtonColor.Success" To="#" Type="@ButtonType.Button"
+                <div class="space"></div>
+                <button class="match-button golden-button start" @onclick="@(() => UpdateMatchState(MatchState.InProgress))">Commencer le match</button>
+                @* <Button class="match-button" Color="ButtonColor.Success" To="#" Type="@ButtonType.Button"
                         @onclick="@(() => UpdateMatchState(MatchState.InProgress))">
                     Commencer le match
-                </Button>
+                </Button> *@
                 break;
             case MatchState.InProgress:
-                <Button To="#" Type="@ButtonType.Button" Color="ButtonColor.Light"
+                <div class="space"></div>
+                <button class="match-button golden-button" @onclick="@OnShowModalClick">Saisir le score</button>
+
+                @* <Button To="#" Type="@ButtonType.Button" Color="ButtonColor.Light"
                         @onclick="@OnShowModalClick">
                     Saisir le score
-                </Button>
+                </Button> *@
                 break;
         }
 

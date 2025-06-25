@@ -1,17 +1,21 @@
 ﻿@page "/"
+@using BattleJop.Web.Components.Modals
+@inject NavigationManager Navigation
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="home">
+    <h1 class="title">J.O.P</h1>
+    <div class="button-list">
+        <button class="golden-button" @onclick="CreateTournamentAsync">
+            Commencer un tournoi
+        </button>
+        <div class="spacer"></div>
+        <button class="golden-button" @onclick="GoToRound">
+            Suivre le tournoi en cours
+        </button>
+    </div>
+</div>
 
-Welcome to your n qsqdew app.
 
-<h1>Test</h1>
-<Card>
-    <CardBody>
-        <CardTitle>Card title</CardTitle>
-        <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.
-        </CardText>
-        <Button Color="ButtonColor.Primary" To="#" Type="ButtonType.Button">Go somewhere</Button>
-    </CardBody>
-</Card>
+<InitTournamentModal OnModalReady="@HandleModalReady"></InitTournamentModal>

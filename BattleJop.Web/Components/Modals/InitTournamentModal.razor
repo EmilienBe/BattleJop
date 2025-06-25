@@ -1,0 +1,18 @@
+﻿<Modal @ref="@InternalModal" IsVerticallyCentered="true" IsScrollable="true" ShowCloseButton="false">
+    <BodyTemplate>
+        <div class="wrapper">
+            <div>Nom</div>
+            <div>
+                @* <TextInput class="text-input"/> *@
+            </div>
+            <div>Nombre de manches</div>
+            <div>
+                @* <NumberInput class="score-input" TValue="int"/> *@
+            </div>
+            
+        </div>
+        <Button Color="ButtonColor.Light" Type="ButtonType.Submit" @onclick="@OnConfirmedModalClick">
+            Ok
+        </Button>
+    </BodyTemplate>
+</Modal>
