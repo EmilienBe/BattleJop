@@ -1,0 +1,45 @@
+﻿@using BattleJop.Web.Components.Modals
+<Card TextAlignment="Alignment.Center">
+    <CardBody>
+        <div class="container">
+            <div class="team">
+                <p>@Match.Teams.ToArray()[0].Name</p>
+                @* <p>@Match.Teams.ToArray()[0].Players.ToArray()[0].Name</p> *@
+                @* <p>@Match.Teams.ToArray()[0].Players.ToArray()[1].Name</p> *@
+            </div>
+            <div class="score">
+                @ScoreA - @ScoreB
+            </div>
+            <div class="team">
+                <p>@Match.Teams.ToArray()[1].Name</p>
+                @* <p>@Match.Teams.ToArray()[1].Players.ToArray()[0].Name</p> *@
+                @* <p>@Match.Teams.ToArray()[1].Players.ToArray()[1].Name</p> *@
+            </div>
+        </div>
+        <div class="space"></div>
+        @switch (_matchState)
+        {
+            case MatchState.WaintingForStart:
+                <Button class="match-button" Color="ButtonColor.Success" To="#" Type="@ButtonType.Button"
+                        @onclick="@(() => UpdateMatchState(MatchState.InProgress))">
+                    Commencer le match
+                </Button>
+                break;
+            case MatchState.InProgress:
+                <Button To="#" Type="@ButtonType.Button" Color="ButtonColor.Light"
+                        @onclick="@OnShowModalClick">
+                    Saisir le score
+                </Button>
+                break;
+        }
+
+    </CardBody>
+</Card>
+
+<EditScoreModal Match="@Match" ScoreA="@ScoreA" ScoreB="@ScoreB" OnModalReady="@HandleModalReady" OnConfirmed="@HandleScoreConfirmed"></EditScoreModal>
+
+@* <Modal @ref="_modal" title="Modal title" IsVerticallyCentered="true">
+    <BodyTemplate>
+        This is a vertically centered modal.
+    </BodyTemplate>
+</Modal> *@

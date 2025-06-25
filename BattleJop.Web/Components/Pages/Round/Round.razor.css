@@ -1,0 +1,15 @@
+﻿h1 {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.round-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 1000px) {
+    .round-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

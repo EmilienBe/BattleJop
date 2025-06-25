@@ -1,0 +1,35 @@
+﻿.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.score {
+    font-size: xx-large;
+    padding: 0 1rem;
+    width: 50%;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25%;
+}
+
+p {
+    margin: 0.2rem 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.space{
+    height: 1rem
+}

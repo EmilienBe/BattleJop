@@ -1,0 +1,35 @@
+﻿<Modal @ref="@InternalModal" IsVerticallyCentered="true" IsScrollable="true" ShowCloseButton="false">
+    <BodyTemplate>
+        <div class="wrapper">
+            <div></div>
+            <div>@Match.Teams.ToArray()[0].Name</div>
+            <div>VS.</div>
+            <div>@Match.Teams.ToArray()[1].Name</div>
+            <div>Score</div>
+            <div>
+                <NumberInput class="score-input" TValue="int" @bind-Value="@EditableScoreA" Max="13" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()" />
+            </div>
+            <div>-</div>
+            <div>
+                <NumberInput class="score-input" TValue="int" @bind-Value="@EditableScoreB" Max="13" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()" />
+            </div>
+            <div>Palets Restant</div>
+            <div>
+                <NumberInput class="score-input" TValue=" int" @bind-Value="@RemainingPuckA" Max="5" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()" />
+            </div>
+            <div>-</div>
+            <div>
+                <NumberInput class="score-input" TValue="int" @bind-Value="@RemainingPuckB" Max="5" Min="0" AllowNegativeNumbers="false"
+                             EnableMinMax="true" onclick="this.select()" />
+            </div>
+        </div>
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Light" Type="ButtonType.Submit" @onclick="@OnConfirmedModalClick">
+            Clôturer le match
+        </Button>
+    </FooterTemplate>
+</Modal>

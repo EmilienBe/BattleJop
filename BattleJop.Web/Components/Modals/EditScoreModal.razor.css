@@ -1,0 +1,19 @@
+﻿.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 0.5fr 2fr;
+    align-items: center;
+    text-align: center;
+    row-gap: 0.5rem;
+}
+
+    .wrapper div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+   .score-input {
+        max-width: 1rem;
+        text-align: center;
+    }
+
