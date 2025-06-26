@@ -1,5 +1,7 @@
 ﻿using BattleJop.Api.Infrastructure.Datas;
 using BattleJop.Api.Infrastructure.Repositories;
+using BattleJop.Api.Infrastructure.Repositories.Players;
+using BattleJop.Api.Infrastructure.Repositories.Teams;
 using BattleJop.Api.Infrastructure.Repositories.Tournaments;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +13,15 @@ public static class ServiceExtensions
     {
         services.AddDbContext<BattleJopCommandDbContext>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ITournamentRepository, TournamentRepository>();
+
+        services.AddScoped<ITournamentCommandRepository, TournamentCommandRepository>();
+        services.AddScoped<ITournamentQueryRepository, TournamentQueryRepository>();
+
+        services.AddScoped<ITeamCommandRepository, TeamCommandRepository>();
+        services.AddScoped<ITeamQueryRepository, TeamQueryRepository>();
+
+        services.AddScoped<IPlayerCommandRepository, PlayerCommandRepository>();
+        services.AddScoped<IPlayerQueryRepository, PLayerQueryRepository>();
 
         return services;
     }
