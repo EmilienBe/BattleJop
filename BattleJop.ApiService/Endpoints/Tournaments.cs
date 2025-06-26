@@ -1,4 +1,4 @@
-﻿using BattleJop.Api.Application.Services.Tournament;
+﻿using BattleJop.Api.Application.Services.Tournaments;
 using BattleJop.Api.Web.Dtos.AddTournament;
 using BattleJop.Api.Web.Extensions;
 using BattleJop.Api.Web.Validator;
@@ -13,18 +13,23 @@ public class Tournaments : ICarterModule
         app.MapPost("tournaments", async (AddTournamentRequest request, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Validation
-            var validator = new AddTournamentValidator();
-            var result = validator.Validate(request);
+            var validatorResult = new AddTournamentValidator().Validate(request);
 
-            if (!result.IsValid)
-                return Results.BadRequest(result.Errors);
+            if (!validatorResult.IsValid)
+                return Results.BadRequest(validatorResult.Errors);
 
             //Add Tournament
-            var tournament = await tournamentService.AddAsync(request.Name, request.NumberRounds, cancellationToken);
+            var result = await tournamentService.AddAsync(request.Name, request.NumberRounds, cancellationToken);
 
-            var response = tournament.ToAddTournamentresponse();
+            return Results.Created($"/tournaments/{result.Result.Id}", result.Result.ToAddTournamentresponse());
+        });
 
-            return Results.Created($"/tournaments/{response.Id}", response);
+        app.MapGet("tournaments", async (ITournamentService tournamentService, CancellationToken cancellationToken) =>
+        {
+            //Get Tournaments
+            var result = await tournamentService.GetAllAsync(cancellationToken);
+
+            return Results.Ok(result.Result.Select(t => t.ToAddTournamentresponse()));
         });
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using BattleJop.Api.Domain.TournamentAggregate;
+using System.Text.Json.Serialization;
 
 namespace BattleJop.Api.Web.Dtos.AddTournament;
 
@@ -9,5 +10,8 @@ public class AddTournamentResponse
 
     [JsonPropertyName("name")]
     public string Name { get; set; }
+
+    [JsonPropertyName("state")]
+    public TournamentState State { get; set; }
 
 }

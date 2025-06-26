@@ -5,5 +5,5 @@ namespace BattleJop.Api.Web.Extensions;
 
 public static class TournamentExtension
 {
-    public static AddTournamentResponse ToAddTournamentresponse(this Tournament source) => new AddTournamentResponse { Id =  source.Id , Name = source.Name};
+    public static AddTournamentResponse ToAddTournamentresponse(this Tournament source) => new AddTournamentResponse { Id =  source.Id , Name = source.Name, State = source.State};
 }

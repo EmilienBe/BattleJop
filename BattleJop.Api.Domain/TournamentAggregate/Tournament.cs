@@ -11,6 +11,8 @@ public class Tournament : Aggregate
 
     public string Name { get; private set; }
 
+    public TournamentState State { get; private set; }
+
     public ICollection<Round> Rounds { get; private set; }
 
     public ICollection<Team> Teams { get; private set; }
@@ -19,6 +21,7 @@ public class Tournament : Aggregate
     {
         Id = id;
         Name = name;
+        State = TournamentState.InConfiguration;
         Rounds = [];
         Teams = [];
     }
@@ -40,4 +43,13 @@ public class Tournament : Aggregate
         ArgumentNullException.ThrowIfNull(name);
         Name = name;
     }
+
+    public void Start() => State = TournamentState.InProgress;
+}
+
+public enum TournamentState
+{
+    InConfiguration = 0,
+    InProgress = 1,
+    Finished = 2
 }

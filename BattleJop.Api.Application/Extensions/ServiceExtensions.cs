@@ -1,4 +1,4 @@
-﻿using BattleJop.Api.Application.Services.Tournament;
+﻿using BattleJop.Api.Application.Services.Tournaments;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
