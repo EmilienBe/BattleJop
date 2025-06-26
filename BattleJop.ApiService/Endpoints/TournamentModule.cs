@@ -1,7 +1,7 @@
 ﻿using BattleJop.Api.Application.Services.Tournaments;
 using BattleJop.Api.Core.ModelActionResult;
 using BattleJop.Api.Web.Dtos;
-using BattleJop.Api.Web.Extensions;
+using BattleJop.Api.Web.Mappers;
 using BattleJop.Api.Web.Validator;
 using Carter;
 using FluentValidation.Results;

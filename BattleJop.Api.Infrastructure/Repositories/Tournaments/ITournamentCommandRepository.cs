@@ -2,7 +2,6 @@
 
 namespace BattleJop.Api.Infrastructure.Repositories.Tournaments;
 
-public interface ITournamentRepository : IRepository<Tournament>
+public interface ITournamentCommandRepository : ICommandRepository<Tournament>
 {
-
 }

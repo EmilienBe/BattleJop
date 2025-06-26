@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BattleJop.Api.Infrastructure.Repositories;
 
-public abstract class AbstractRepository<TEntity> where TEntity : class
+public abstract class AbstractCommandRepository<TEntity> where TEntity : class
 {
     protected readonly BattleJopCommandDbContext _context;
     protected readonly DbSet<TEntity> _dbSet;
 
-    public AbstractRepository(BattleJopCommandDbContext context)
+    public AbstractCommandRepository(BattleJopCommandDbContext context)
     {
         _context = context;
         _dbSet = context.Set<TEntity>();
@@ -16,6 +16,12 @@ public abstract class AbstractRepository<TEntity> where TEntity : class
 
     public void Add(TEntity entity) => 
         _dbSet.Add(entity);
+
+    public void Add(ICollection<TEntity> entities)
+    {
+        foreach (var entity in entities)
+            Add(entity);
+    }
 
     public void Update(TEntity entityToUpdate)
     {
@@ -37,7 +43,4 @@ public abstract class AbstractRepository<TEntity> where TEntity : class
 
         _dbSet.Remove(entityToDelete);
     }
-
-    public async Task<ICollection<TEntity>> GetAllAsync(CancellationToken cancellationToken) => 
-        await _dbSet.ToListAsync(cancellationToken).ConfigureAwait(false);
 }

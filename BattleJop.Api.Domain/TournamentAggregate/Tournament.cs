@@ -13,9 +13,9 @@ public class Tournament : Aggregate
 
     public TournamentState State { get; private set; }
 
-    public ICollection<Round> Rounds { get; private set; }
+    public ICollection<Round> Rounds { get; private set; } = [];
 
-    public ICollection<Team> Teams { get; private set; }
+    public ICollection<Team> Teams { get; private set; } = [];
 
     public Tournament(Guid id, string name)
     {
@@ -35,6 +35,7 @@ public class Tournament : Aggregate
     public void AddTeam(Team team)
     {
         ArgumentNullException.ThrowIfNull(team);
+
         Teams.Add(team);
     }
 
