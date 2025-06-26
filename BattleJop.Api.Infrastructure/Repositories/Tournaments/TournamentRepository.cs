@@ -2,14 +2,14 @@
 using BattleJop.Api.Infrastructure.Datas;
 using Microsoft.EntityFrameworkCore;
 
-namespace BattleJop.Api.Infrastructure.Repositories.Tournament;
+namespace BattleJop.Api.Infrastructure.Repositories.Tournaments;
 
-public class TournamentRepository : AbstractRepository<Domain.TournamentAggregate.Tournament>, ITournamentRepository
+public class TournamentRepository : AbstractRepository<Tournament>, ITournamentRepository
 {
     public TournamentRepository(BattleJopCommandDbContext context) : base(context)
     {
     }
 
-    public async Task<Domain.TournamentAggregate.Tournament?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
+    public async Task<Tournament?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await _context.Tournaments.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
 }

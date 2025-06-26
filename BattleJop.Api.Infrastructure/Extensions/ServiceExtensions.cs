@@ -1,6 +1,6 @@
 ﻿using BattleJop.Api.Infrastructure.Datas;
 using BattleJop.Api.Infrastructure.Repositories;
-using BattleJop.Api.Infrastructure.Repositories.Tournament;
+using BattleJop.Api.Infrastructure.Repositories.Tournaments;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BattleJop.Api.Infrastructure.Extensions;

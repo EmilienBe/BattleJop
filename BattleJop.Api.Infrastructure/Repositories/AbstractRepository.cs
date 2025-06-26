@@ -37,4 +37,7 @@ public abstract class AbstractRepository<TEntity> where TEntity : class
 
         _dbSet.Remove(entityToDelete);
     }
+
+    public async Task<ICollection<TEntity>> GetAllAsync(CancellationToken cancellationToken) => 
+        await _dbSet.ToListAsync(cancellationToken).ConfigureAwait(false);
 }

@@ -1,5 +1,6 @@
 using BattleJop.Api.Application.Extensions;
 using BattleJop.Api.Infrastructure.Extensions;
+using BattleJop.ServiceDefaults;
 using Carter;
 using Scalar.AspNetCore;
 
