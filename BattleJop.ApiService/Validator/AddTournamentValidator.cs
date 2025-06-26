@@ -1,6 +1,6 @@
 ﻿namespace BattleJop.Api.Web.Validator;
 
-using BattleJop.Api.Web.Dtos.AddTournament;
+using BattleJop.Api.Web.Dtos;
 using FluentValidation;
 
 public class AddTournamentValidator : AbstractValidator<AddTournamentRequest>

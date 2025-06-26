@@ -29,7 +29,14 @@ public class ModelActionResult<T> : ModelActionResult where T : class
         Result = result;
     }
 
+    public ModelActionResult(bool success, FaultType faultType = default!, string message = null!) : base(success, faultType, message)
+    {
+
+    }
+
     public static ModelActionResult<T> Ok(T result) => new(true, result);
+    public static new ModelActionResult<T> Fail(FaultType faultType) => new(false, faultType);
+    public static new ModelActionResult<T> Fail(FaultType faultType, string message) => new(false, faultType, message);
 }
 
 public interface IActionResult 

@@ -26,7 +26,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentRepository tou
     {
         var tournament = await tournamentRepository.GetByIdAsync(id, cancellationToken);
         if (tournament == null)
-            return ModelActionResult.Fail(FaultType.TOURNAMENT_NOT_FOUND);
+            return ModelActionResult.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{id}' does not exist.");
 
         tournamentRepository.Delete(tournament.Id);
         await unitOfWork.SaveChangesAsync(cancellationToken);
@@ -39,7 +39,12 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentRepository tou
 
     public async Task<ModelActionResult<Tournament>> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var tournament = await tournamentRepository.GetByIdAsync(id, cancellationToken);
+
+        if (tournament == null)
+            return ModelActionResult<Tournament>.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{id}' does not exist.");
+
+        return ModelActionResult<Tournament>.Ok(tournament);
     }
 
     public async Task<ModelActionResult> StartAsync(Guid id, CancellationToken cancellationToken)
