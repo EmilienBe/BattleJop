@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BattleJop.Api.Infrastructure.Repositories.Tournaments;
 
-public class TournamentQueryRepository(BattleJopCommandDbContext context) : AbstractQueryRepository<Tournament>(context), ITournamentQueryRepository
+public class TournamentQueryRepository(BattleJopDbContext context) : AbstractQueryRepository<Tournament>(context), ITournamentQueryRepository
 {
     public async Task<Tournament?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await _dbSet.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id, cancellationToken);

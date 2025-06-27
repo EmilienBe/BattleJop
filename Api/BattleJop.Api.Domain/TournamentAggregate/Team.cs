@@ -7,15 +7,13 @@ public class Team : Aggregate
         
     }
 
-    public Guid Id { get; private set; }
-
     public string Name { get; private set; }
 
     public Tournament Tournament { get; private set; }
 
     public ICollection<Player> Players { get; private set; }
 
-    public ICollection<Match> Matchs { get; private set; }
+    public ICollection<MatchTeam> Scores { get; private set; }
 
     public Team(Guid id, string name, Tournament tournament)
     {
@@ -25,7 +23,7 @@ public class Team : Aggregate
         Name = name;
         Tournament = tournament;
         Players = [];
-        Matchs = [];
+        Scores = [];
     }
 
     public void AddPlayer(Player player)

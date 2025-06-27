@@ -1,6 +1,5 @@
 ﻿namespace BattleJop.Api.Domain.TournamentAggregate;
-
-public class MatchTeam
+public class MatchTeam : Aggregate
 {
     public MatchTeam()
     {
@@ -13,7 +12,7 @@ public class MatchTeam
 
     public int RemainingPuck { get; set; }
 
-    public Guid MatchId { get; set; }
+    public Match Match { get; set; }
 
-    public Guid TeamId { get; set; }
+    public Team Team { get; set; }
 }

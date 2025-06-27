@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BattleJop.Api.Infrastructure.Repositories.Players;
 
-public class PlayerCommandRepository(BattleJopCommandDbContext context) : AbstractCommandRepository<Player>(context), IPlayerCommandRepository
+public class PlayerCommandRepository(BattleJopDbContext context) : AbstractCommandRepository<Player>(context), IPlayerCommandRepository
 {
     public Task<Player?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => 
         _context.Players.FirstOrDefaultAsync(p => p.Id == id, cancellationToken);

@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleJop.Web", "Web\Battle
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleJop.Web.Tests", "Web\BattleJop.Tests\BattleJop.Web.Tests.csproj", "{633C9143-6F4F-F412-6739-FFD159E36B27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleJop.Api.Tests", "Api\BattleJop.Api.Tests\BattleJop.Api.Tests.csproj", "{178533AF-FCB3-4EAF-B0CC-45E4A6468088}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -66,6 +68,10 @@ Global
 		{633C9143-6F4F-F412-6739-FFD159E36B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{633C9143-6F4F-F412-6739-FFD159E36B27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{633C9143-6F4F-F412-6739-FFD159E36B27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178533AF-FCB3-4EAF-B0CC-45E4A6468088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178533AF-FCB3-4EAF-B0CC-45E4A6468088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178533AF-FCB3-4EAF-B0CC-45E4A6468088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178533AF-FCB3-4EAF-B0CC-45E4A6468088}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{BBD0542B-C702-47A4-9CCE-18AC84689FDB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ED2EECEC-3E3B-E1A0-A4FD-4B46F1D6F2C5} = {369CB01D-A1A7-72D2-AABC-3F0945D148A2}
 		{633C9143-6F4F-F412-6739-FFD159E36B27} = {369CB01D-A1A7-72D2-AABC-3F0945D148A2}
+		{178533AF-FCB3-4EAF-B0CC-45E4A6468088} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AC99DB79-C770-4A58-BDC2-5BFFE269D163}

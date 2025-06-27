@@ -1,5 +1,4 @@
 ﻿namespace BattleJop.Api.Domain.TournamentAggregate;
-
 public class Match : Aggregate
 {
     public Match()
@@ -7,13 +6,11 @@ public class Match : Aggregate
         
     }
 
-    public Guid Id { get; private set ; }
-
     public int RunningOrder { get; private set; }
 
     public Round Round { get; private set; }
 
-    public ICollection<Team> Teams { get; private set; }
+    public ICollection<MatchTeam> Scores { get; private set; }
 
     public Match(Guid id, int runningOrder, Round round)
     {
@@ -22,12 +19,12 @@ public class Match : Aggregate
         Id = id;
         RunningOrder = runningOrder;
         Round = round;
-        Teams = [];
+        Scores = [];
     }
 
-    public void AddTeam(Team team)
+    public void AddTeam(MatchTeam scrore)
     {
-        ArgumentNullException.ThrowIfNull(team, nameof(team));
-        Teams.Add(team);
+        ArgumentNullException.ThrowIfNull(scrore, nameof(scrore));
+        Scores.Add(scrore);
     }
 }

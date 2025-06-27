@@ -3,6 +3,7 @@ using System;
 using BattleJop.Api.Infrastructure.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,10 +11,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace BattleJop.Api.Infrastructure.Migrations
 {
-    [DbContext(typeof(BattleJopCommandDbContext))]
-    partial class BattleJopCommandDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BattleJopDbContext))]
+    [Migration("20250627163938_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,19 +52,29 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
                     b.HasIndex("RoundId");
 
-                    b.ToTable("Matchs");
+                    b.ToTable("matchs", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.MatchTeam", b =>
                 {
-                    b.Property<Guid>("MatchId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("TeamId")
-                        .HasColumnType("uuid");
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Desactivated")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsWinner")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("MatchId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("RemainingPuck")
                         .HasColumnType("integer");
@@ -69,11 +82,16 @@ namespace BattleJop.Api.Infrastructure.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("integer");
 
-                    b.HasKey("MatchId", "TeamId");
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchId");
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("MatchTeam");
+                    b.ToTable("match_teams", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Player", b =>
@@ -104,7 +122,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Players");
+                    b.ToTable("players", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Round", b =>
@@ -134,7 +152,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Rounds");
+                    b.ToTable("rounds", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Team", b =>
@@ -165,7 +183,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
                     b.HasIndex("TournamentId");
 
-                    b.ToTable("Teams");
+                    b.ToTable("teams", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Tournament", b =>
@@ -194,7 +212,7 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("tournaments", (string)null);
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Match", b =>
@@ -210,17 +228,21 @@ namespace BattleJop.Api.Infrastructure.Migrations
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.MatchTeam", b =>
                 {
-                    b.HasOne("BattleJop.Api.Domain.TournamentAggregate.Match", null)
-                        .WithMany()
+                    b.HasOne("BattleJop.Api.Domain.TournamentAggregate.Match", "Match")
+                        .WithMany("Scores")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BattleJop.Api.Domain.TournamentAggregate.Team", null)
-                        .WithMany()
+                    b.HasOne("BattleJop.Api.Domain.TournamentAggregate.Team", "Team")
+                        .WithMany("Scores")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Match");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Player", b =>
@@ -256,6 +278,11 @@ namespace BattleJop.Api.Infrastructure.Migrations
                     b.Navigation("Tournament");
                 });
 
+            modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Match", b =>
+                {
+                    b.Navigation("Scores");
+                });
+
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Round", b =>
                 {
                     b.Navigation("Matchs");
@@ -264,6 +291,8 @@ namespace BattleJop.Api.Infrastructure.Migrations
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Team", b =>
                 {
                     b.Navigation("Players");
+
+                    b.Navigation("Scores");
                 });
 
             modelBuilder.Entity("BattleJop.Api.Domain.TournamentAggregate.Tournament", b =>

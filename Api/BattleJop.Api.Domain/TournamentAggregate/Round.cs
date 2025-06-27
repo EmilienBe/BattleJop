@@ -7,8 +7,6 @@ public class Round : Aggregate
         
     }
 
-    public Guid Id { get; private set; }
-
     public int RunningOrder { get; protected set; }
 
     public Tournament Tournament { get; private set; }

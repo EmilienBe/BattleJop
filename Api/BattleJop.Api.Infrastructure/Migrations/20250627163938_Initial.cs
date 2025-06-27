@@ -12,22 +12,23 @@ namespace BattleJop.Api.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tournaments",
+                name: "tournaments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<int>(type: "integer", nullable: false),
                     Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Desactivated = table.Column<bool>(type: "boolean", nullable: false, defaultValueSql: "false")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tournaments", x => x.Id);
+                    table.PrimaryKey("PK_tournaments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rounds",
+                name: "rounds",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -39,17 +40,17 @@ namespace BattleJop.Api.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rounds", x => x.Id);
+                    table.PrimaryKey("PK_rounds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rounds_Tournaments_TournamentId",
+                        name: "FK_rounds_tournaments_TournamentId",
                         column: x => x.TournamentId,
-                        principalTable: "Tournaments",
+                        principalTable: "tournaments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teams",
+                name: "teams",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -61,17 +62,17 @@ namespace BattleJop.Api.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.PrimaryKey("PK_teams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Teams_Tournaments_TournamentId",
+                        name: "FK_teams_tournaments_TournamentId",
                         column: x => x.TournamentId,
-                        principalTable: "Tournaments",
+                        principalTable: "tournaments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Matchs",
+                name: "matchs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -83,17 +84,17 @@ namespace BattleJop.Api.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matchs", x => x.Id);
+                    table.PrimaryKey("PK_matchs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Matchs_Rounds_RoundId",
+                        name: "FK_matchs_rounds_RoundId",
                         column: x => x.RoundId,
-                        principalTable: "Rounds",
+                        principalTable: "rounds",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Players",
+                name: "players",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -105,65 +106,74 @@ namespace BattleJop.Api.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Players", x => x.Id);
+                    table.PrimaryKey("PK_players", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Players_Teams_TeamId",
+                        name: "FK_players_teams_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Teams",
+                        principalTable: "teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MatchTeam",
+                name: "match_teams",
                 columns: table => new
                 {
-                    MatchId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TeamId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Score = table.Column<int>(type: "integer", nullable: false),
                     IsWinner = table.Column<bool>(type: "boolean", nullable: false),
-                    RemainingPuck = table.Column<int>(type: "integer", nullable: false)
+                    RemainingPuck = table.Column<int>(type: "integer", nullable: false),
+                    MatchId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Desactivated = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MatchTeam", x => new { x.MatchId, x.TeamId });
+                    table.PrimaryKey("PK_match_teams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MatchTeam_Matchs_MatchId",
+                        name: "FK_match_teams_matchs_MatchId",
                         column: x => x.MatchId,
-                        principalTable: "Matchs",
+                        principalTable: "matchs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MatchTeam_Teams_TeamId",
+                        name: "FK_match_teams_teams_TeamId",
                         column: x => x.TeamId,
-                        principalTable: "Teams",
+                        principalTable: "teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matchs_RoundId",
-                table: "Matchs",
+                name: "IX_match_teams_MatchId",
+                table: "match_teams",
+                column: "MatchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_match_teams_TeamId",
+                table: "match_teams",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_matchs_RoundId",
+                table: "matchs",
                 column: "RoundId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MatchTeam_TeamId",
-                table: "MatchTeam",
+                name: "IX_players_TeamId",
+                table: "players",
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_TeamId",
-                table: "Players",
-                column: "TeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rounds_TournamentId",
-                table: "Rounds",
+                name: "IX_rounds_TournamentId",
+                table: "rounds",
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teams_TournamentId",
-                table: "Teams",
+                name: "IX_teams_TournamentId",
+                table: "teams",
                 column: "TournamentId");
         }
 
@@ -171,22 +181,22 @@ namespace BattleJop.Api.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MatchTeam");
+                name: "match_teams");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "players");
 
             migrationBuilder.DropTable(
-                name: "Matchs");
+                name: "matchs");
 
             migrationBuilder.DropTable(
-                name: "Teams");
+                name: "teams");
 
             migrationBuilder.DropTable(
-                name: "Rounds");
+                name: "rounds");
 
             migrationBuilder.DropTable(
-                name: "Tournaments");
+                name: "tournaments");
         }
     }
 }

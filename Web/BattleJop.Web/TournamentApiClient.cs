@@ -12,36 +12,19 @@ public class TournamentApiClient(HttpClient httpClient)
 
         round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
         {
-            Teams =
-            {
-                new Team(Guid.NewGuid(), "Les Foufous", _tournament),
-                new Team(Guid.NewGuid(), "Les Loulous", _tournament)
-            }
         });
         round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
             {
-                Teams =
-                {
-                    new Team(Guid.NewGuid(), "Le Palet Fou", _tournament),
-                    new Team(Guid.NewGuid(), "Le Palet Mou", _tournament)
-                }
+
             }
         );
         round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
         {
-            Teams =
-            {
-                new Team(Guid.NewGuid(), "Les Foufous", _tournament),
-                new Team(Guid.NewGuid(), "Les Loulous", _tournament)
-            }
+
         });
         round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
         {
-            Teams =
-            {
-                new Team(Guid.NewGuid(), "Les Foufous", _tournament),
-                new Team(Guid.NewGuid(), "Les Loulous", _tournament)
-            }
+
         });
 
         return Task.FromResult(round);

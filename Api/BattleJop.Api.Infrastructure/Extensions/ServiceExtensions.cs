@@ -11,7 +11,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.AddDbContext<BattleJopCommandDbContext>();
+        services.AddDbContext<BattleJopDbContext>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<ITournamentCommandRepository, TournamentCommandRepository>();

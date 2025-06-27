@@ -6,10 +6,10 @@ namespace BattleJop.Api.Infrastructure.Repositories;
 
 public abstract class AbstractQueryRepository<TEntity> where TEntity : class
 {
-    protected readonly BattleJopCommandDbContext _context;
+    protected readonly BattleJopDbContext _context;
     protected readonly DbSet<TEntity> _dbSet;
 
-    public AbstractQueryRepository(BattleJopCommandDbContext context)
+    public AbstractQueryRepository(BattleJopDbContext context)
     {
         _context = context;
         _dbSet = context.Set<TEntity>();

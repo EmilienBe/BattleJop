@@ -7,8 +7,6 @@ public class Player : Aggregate
         
     }
 
-    public Guid Id { get; private set; }
-
     public string Name { get; private set; }
 
     public Team Team { get; private set; }

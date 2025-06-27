@@ -23,11 +23,6 @@
     </PackageReference>
   </ItemGroup>
 
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\BattleJop.AppHost\BattleJop.AppHost.csproj" />
-  </ItemGroup>
-
   <ItemGroup>
     <Using Include="System.Net" />
     <Using Include="Microsoft.Extensions.DependencyInjection" />
