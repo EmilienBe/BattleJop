@@ -23,8 +23,9 @@
     </PackageReference>
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\BattleJop.AppHost\BattleJop.AppHost.csproj" />
+    <ProjectReference Include="..\..\BattleJop.AppHost\BattleJop.AppHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>

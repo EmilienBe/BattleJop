@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BattleJop.ServiceDefaults\BattleJop.ServiceDefaults.csproj" />
     <ProjectReference Include="..\BattleJop.Api.Application\BattleJop.Api.Application.csproj" />
-    <ProjectReference Include="..\BattleJop.ServiceDefaults\BattleJop.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,12 +12,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BattleJop.ApiService\BattleJop.Api.Web.csproj" />
-    <ProjectReference Include="..\BattleJop.Web\BattleJop.Web.csproj" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <ProjectReference Include="..\Api\BattleJop.ApiService\BattleJop.Api.Web.csproj" />
+    <ProjectReference Include="..\Web\BattleJop.Web\BattleJop.Web.csproj" />
   </ItemGroup>
 
 </Project>
