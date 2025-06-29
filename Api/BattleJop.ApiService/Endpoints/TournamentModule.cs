@@ -1,5 +1,4 @@
 ﻿using BattleJop.Api.Application.Services.Tournaments;
-using BattleJop.Api.Core.ModelActionResult;
 using BattleJop.Api.Web.Dtos;
 using BattleJop.Api.Web.Mappers;
 using BattleJop.Api.Web.Validator;
@@ -9,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BattleJop.Api.Web.Endpoints;
 
-public class TournamentModule : ICarterModule
+public class TournamentModule : AbstractModule, ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("tournaments",
+        [Tags("Tournaments")]
         [ProducesResponseType<TournamentResponse>(StatusCodes.Status201Created)]
         [ProducesResponseType<List<ValidationFailure>>(StatusCodes.Status400BadRequest)]
         async (AddTournamentRequest request, ITournamentService tournamentService, CancellationToken cancellationToken) =>
@@ -27,10 +27,11 @@ public class TournamentModule : ICarterModule
             //Add Tournament
             var result = await tournamentService.AddAsync(request.Name, request.NumberRounds, cancellationToken);
 
-            return Results.Created($"/tournaments/{result.Result.Id}", result.Result.ToTournamentResponse());
+            return ResolveActionResult(result, result.Result.ToTournamentResponse(), $"tournaments/{result.Result?.Id}");
         });
 
         app.MapGet("tournaments/{id:guid}",
+        [Tags("Tournaments")]
         [ProducesResponseType<TournamentResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
         async (Guid id, ITournamentService tournamentService, CancellationToken cancellationToken) =>
@@ -38,20 +39,18 @@ public class TournamentModule : ICarterModule
             //Get Tournament
             var result = await tournamentService.GetByIdAsync(id, cancellationToken);
 
-            if (!result.IsSuccess && result.FaultType == FaultType.TOURNAMENT_NOT_FOUND)
-                return Results.NotFound(new ErrorResponse(result.FaultType, result.Message));
-
-            return Results.Ok(result.Result.ToTournamentResponse());
+            return ResolveActionResult(result, result.Result?.ToTournamentResponse());
         });
 
         app.MapGet("tournaments",
+        [Tags("Tournaments")]
         [ProducesResponseType<TournamentResponse>(StatusCodes.Status200OK)]
         async (ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Get Tournaments
             var result = await tournamentService.GetAllAsync(cancellationToken);
 
-            return Results.Ok(result.Result.Select(t => t.ToTournamentResponse()));
+            return ResolveActionResult(result, result.Result?.Select(t => t.ToTournamentResponse()));
         });
     }
 }

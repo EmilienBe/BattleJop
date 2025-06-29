@@ -46,7 +46,7 @@ public class TeamService : ITeamService
 
         await _unitOfWork.SaveChangesAsync();
 
-        return ModelActionResult<Team>.Ok(team);
+        return ModelActionResult<Team>.Created(team);
     }
 
     public async Task<ModelActionResult<ICollection<Team>>> GetTeamsByTournamentId(Guid tournamentId, CancellationToken cancellationToken)
@@ -57,5 +57,19 @@ public class TeamService : ITeamService
             return ModelActionResult<ICollection<Team>>.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{tournamentId}' does not exist.");
 
         return ModelActionResult<ICollection<Team>>.Ok(tournament.Teams);
+    }
+
+    public async Task<ModelActionResult<Team>> GetTeamsByTournamentIdAndId(Guid tournamentId, Guid teamId, CancellationToken cancellationToken)
+    {
+        var tournament = await _tournamentQueryRepository.GetByIdInculeTeamAndPlayerAsync(tournamentId, cancellationToken);
+
+        if (tournament == null)
+            return ModelActionResult<Team>.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{tournamentId}' does not exist.");
+
+        var team = tournament.Teams.FirstOrDefault(t => t.Id == teamId);
+        if (team == null)
+            return ModelActionResult<Team>.Fail(FaultType.TEAM_NOT_FOUND, $"The team with identifier '{teamId}' does not exist.");
+
+        return ModelActionResult<Team>.Ok(team);
     }
 }

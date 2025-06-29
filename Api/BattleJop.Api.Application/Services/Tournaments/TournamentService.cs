@@ -17,7 +17,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
         tournamentCommandRepository.Add(tournament);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return ModelActionResult<Tournament>.Ok(tournament); ;
+        return ModelActionResult<Tournament>.Created(tournament); ;
     }
 
     public async Task<ModelActionResult> DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
