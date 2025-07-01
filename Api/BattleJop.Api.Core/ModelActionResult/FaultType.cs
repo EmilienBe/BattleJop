@@ -7,4 +7,5 @@ public enum FaultType
     OK = 10003,
     CREATED = 10004,
     OK_NO_CONTENT = 10005,
+    TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED = 10006
 }

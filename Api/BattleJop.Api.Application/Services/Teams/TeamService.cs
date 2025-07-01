@@ -35,6 +35,8 @@ public class TeamService : ITeamService
         if (tournament == null)
             return ModelActionResult<Team>.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{tournamentId}' does not exist.");
 
+        if (!tournament.IsInConfiguration())
+            return ModelActionResult<Team>.Fail(FaultType.TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED, $"The tournament is in state '{tournament.State}', impossible to add a new team.");
 
         var team = new Team(Guid.NewGuid(), name, tournament);
 

@@ -45,7 +45,11 @@ public class Tournament : Aggregate
         Name = name;
     }
 
+    public bool IsInConfiguration() => State == TournamentState.InConfiguration;
+
     public void Start() => State = TournamentState.InProgress;
+
+    public void Finish() => State = TournamentState.Finished;
 }
 
 public enum TournamentState

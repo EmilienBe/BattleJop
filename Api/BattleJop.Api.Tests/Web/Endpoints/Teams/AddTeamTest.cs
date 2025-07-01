@@ -70,6 +70,76 @@ public class AddTeamTest(BattleJopWebAppFactory factory) : AbstractIntegrationTe
         Assert.Equal($"The tournament with identifier '{tournamentId}' does not exist.", data.Message);
     }
 
+    [Fact]
+    public async Task AddTeam_ShouldReturn409_WhenTournamentIsInProgress()
+    {
+        //Arrange
+        var tournament = new Tournament(Guid.NewGuid(), "Test Tournament");
+
+        tournament.Start();
+
+        _context.Tournaments.Add(tournament);
+        _context.SaveChanges();
+
+        var name = "Team 789";
+        var players = new List<string> { "Player 1", "Player 2" };
+
+        //Act
+        var response = await _client.PostAsJsonAsync($"tournaments/{tournament.Id}/teams", new AddTeamRequest
+        {
+            Name = name,
+            Players = players
+        });
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+
+        var json = await response.Content.ReadAsStringAsync();
+        var data = JsonSerializer.Deserialize<ErrorResponse>(json);
+
+        Assert.NotNull(data);
+        Assert.Equal(10006, data.Code);
+        Assert.Equal("TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED", data.Error);
+        Assert.Equal($"The tournament is in state 'InProgress', impossible to add a new team.", data.Message);
+
+        ClearDatabase();
+    }
+
+    [Fact]
+    public async Task AddTeam_ShouldReturn409_WhenTournamentIsFinished()
+    {
+        //Arrange
+        var tournament = new Tournament(Guid.NewGuid(), "Test Tournament");
+
+        tournament.Finish();
+
+        _context.Tournaments.Add(tournament);
+        _context.SaveChanges();
+
+        var name = "Team 789";
+        var players = new List<string> { "Player 1", "Player 2" };
+
+        //Act
+        var response = await _client.PostAsJsonAsync($"tournaments/{tournament.Id}/teams", new AddTeamRequest
+        {
+            Name = name,
+            Players = players
+        });
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
+
+        var json = await response.Content.ReadAsStringAsync();
+        var data = JsonSerializer.Deserialize<ErrorResponse>(json);
+
+        Assert.NotNull(data);
+        Assert.Equal(10006, data.Code);
+        Assert.Equal("TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED", data.Error);
+        Assert.Equal($"The tournament is in state 'Finished', impossible to add a new team.", data.Message);
+
+        ClearDatabase();
+    }
+
     [Theory]
     [InlineData("", new string[] { "Player 1", "Player 2"})]
     [InlineData("Team 1", null)]
