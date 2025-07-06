@@ -6,6 +6,13 @@ public class MatchTeam : Aggregate
         
     }
 
+    public MatchTeam(Guid id, Match match, Team team)
+    {
+        Id = id;
+        Match = match;
+        Team = team;
+    }
+
     public int Score { get; set; }
 
     public bool IsWinner { get; set; }

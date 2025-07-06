@@ -76,7 +76,7 @@ public class AddTeamTest(BattleJopWebAppFactory factory) : AbstractIntegrationTe
         //Arrange
         var tournament = new Tournament(Guid.NewGuid(), "Test Tournament");
 
-        tournament.Start();
+        tournament.UpdateState(TournamentState.InProgress);
 
         _context.Tournaments.Add(tournament);
         _context.SaveChanges();
@@ -99,7 +99,7 @@ public class AddTeamTest(BattleJopWebAppFactory factory) : AbstractIntegrationTe
 
         Assert.NotNull(data);
         Assert.Equal(10006, data.Code);
-        Assert.Equal("TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED", data.Error);
+        Assert.Equal("TOURNAMENT_INVALID_STATE", data.Error);
         Assert.Equal($"The tournament is in state 'InProgress', impossible to add a new team.", data.Message);
 
         ClearDatabase();
@@ -134,7 +134,7 @@ public class AddTeamTest(BattleJopWebAppFactory factory) : AbstractIntegrationTe
 
         Assert.NotNull(data);
         Assert.Equal(10006, data.Code);
-        Assert.Equal("TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED", data.Error);
+        Assert.Equal("TOURNAMENT_INVALID_STATE", data.Error);
         Assert.Equal($"The tournament is in state 'Finished', impossible to add a new team.", data.Message);
 
         ClearDatabase();

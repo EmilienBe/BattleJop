@@ -22,7 +22,7 @@ public class Match : Aggregate
         Scores = [];
     }
 
-    public void AddTeam(MatchTeam scrore)
+    public void AddScoreTeam(MatchTeam scrore)
     {
         ArgumentNullException.ThrowIfNull(scrore, nameof(scrore));
         Scores.Add(scrore);

@@ -11,12 +11,32 @@ public abstract class AbstractModule
             case FaultType.TOURNAMENT_NOT_FOUND:
             case FaultType.TEAM_NOT_FOUND:
                 return Results.NotFound(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
-            case FaultType.TOURNAMENT_IS_IN_PROGRESS_OR_FINISHED:
+            case FaultType.TOURNAMENT_INVALID_STATE:
+            case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:
+            case FaultType.TOURNAMENT_NO_ROUND_EXIST:
                 return Results.Conflict(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.OK:
                 return Results.Ok(result);
             case FaultType.CREATED:
                 return Results.Created(createdUri, result);
+            case FaultType.OK_NO_CONTENT:
+                return Results.NoContent();
+            default:
+                throw new NotImplementedException();
+        }
+    }
+
+    protected IResult ResolveActionResult(ModelActionResult modelActionResult)
+    {
+        switch (modelActionResult.FaultType)
+        {
+            case FaultType.TOURNAMENT_NOT_FOUND:
+            case FaultType.TEAM_NOT_FOUND:
+                return Results.NotFound(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
+            case FaultType.TOURNAMENT_INVALID_STATE:
+            case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:
+            case FaultType.TOURNAMENT_NO_ROUND_EXIST:
+                return Results.Conflict(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.OK_NO_CONTENT:
                 return Results.NoContent();
             default:

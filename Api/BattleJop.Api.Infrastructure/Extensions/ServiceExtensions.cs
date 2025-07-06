@@ -1,5 +1,7 @@
 ﻿using BattleJop.Api.Infrastructure.Datas;
 using BattleJop.Api.Infrastructure.Repositories;
+using BattleJop.Api.Infrastructure.Repositories.Matchs;
+using BattleJop.Api.Infrastructure.Repositories.MatchTeams;
 using BattleJop.Api.Infrastructure.Repositories.Players;
 using BattleJop.Api.Infrastructure.Repositories.Teams;
 using BattleJop.Api.Infrastructure.Repositories.Tournaments;
@@ -22,6 +24,10 @@ public static class ServiceExtensions
 
         services.AddScoped<IPlayerCommandRepository, PlayerCommandRepository>();
         services.AddScoped<IPlayerQueryRepository, PLayerQueryRepository>();
+
+        services.AddScoped<IMatchCommandRepository, MatchCommandRepository>();
+
+        services.AddScoped<IMatchTeamCommandRepository, MatchTeamCommandRepository>();
 
         return services;
     }

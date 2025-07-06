@@ -8,4 +8,10 @@ public class TournamentCommandRepository(BattleJopDbContext context) : AbstractC
 {
     public async Task<Tournament?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
         await _context.Tournaments.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+
+    public async Task<Tournament?> GetByIdInculeTeamAndRoundAsync(Guid tournamentId, CancellationToken cancellationToken) =>
+        await _context.Tournaments
+        .Include(t => t.Teams)
+        .Include(t => t.Rounds)
+        .FirstOrDefaultAsync(t => t.Id == tournamentId, cancellationToken);
 }

@@ -52,5 +52,17 @@ public class TournamentModule : AbstractModule, ICarterModule
 
             return ResolveActionResult(result, result.Result?.Select(t => t.ToTournamentResponse()));
         });
+
+        app.MapPost("tournaments/{id:guid}/start",
+        [Tags("Tournaments")]
+        [ProducesResponseType<TournamentResponse>(StatusCodes.Status204NoContent)]
+        [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        async (Guid id, ITournamentService tournamentService, CancellationToken cancellationToken) =>
+        {
+            //Start Tournament
+            var result = await tournamentService.StartAsync(id, cancellationToken);
+
+            return ResolveActionResult(result);
+        });
     }
 }

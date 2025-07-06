@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BattleJop.Api.Core\BattleJop.Api.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,5 @@
 ﻿using BattleJop.Api.Domain.TournamentAggregate;
 using BattleJop.Api.Web.Dtos;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
