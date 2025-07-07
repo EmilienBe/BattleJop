@@ -61,7 +61,7 @@ public class TeamService : ITeamService
         return ModelActionResult<ICollection<Team>>.Ok(tournament.Teams);
     }
 
-    public async Task<ModelActionResult<Team>> GetTeamsByTournamentIdAndId(Guid tournamentId, Guid teamId, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<Team>> GetTeamByTournamentIdAndId(Guid tournamentId, Guid teamId, CancellationToken cancellationToken)
     {
         var tournament = await _tournamentQueryRepository.GetByIdInculeTeamAndPlayerAsync(tournamentId, cancellationToken);
 

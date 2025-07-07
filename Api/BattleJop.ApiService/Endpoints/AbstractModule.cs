@@ -10,6 +10,7 @@ public abstract class AbstractModule
         {
             case FaultType.TOURNAMENT_NOT_FOUND:
             case FaultType.TEAM_NOT_FOUND:
+            case FaultType.ROUND_NOT_FOUND:
                 return Results.NotFound(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.TOURNAMENT_INVALID_STATE:
             case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:
@@ -32,6 +33,7 @@ public abstract class AbstractModule
         {
             case FaultType.TOURNAMENT_NOT_FOUND:
             case FaultType.TEAM_NOT_FOUND:
+            case FaultType.ROUND_NOT_FOUND:
                 return Results.NotFound(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.TOURNAMENT_INVALID_STATE:
             case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:

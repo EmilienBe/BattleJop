@@ -64,7 +64,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
         if (tournament.Teams.Count % 2 != 0)
             return ModelActionResult.Fail(FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS, "The tournament must start with an even number of teams.");
 
-        var firstRound = tournament.Rounds.FirstOrDefault();
+        var firstRound = tournament.Rounds.FirstOrDefault(r => r.RunningOrder == 1);
         if (firstRound is null)
             return ModelActionResult.Fail(FaultType.TOURNAMENT_NO_ROUND_EXIST, "The tournament has no rounds.");
 

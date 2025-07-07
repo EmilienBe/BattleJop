@@ -31,6 +31,7 @@ public static class ServiceExtensions
         services.AddScoped<IMatchTeamCommandRepository, MatchTeamCommandRepository>();
 
         services.AddScoped<IRoundCommandRepository, RoundCommandRepository>();
+        services.AddScoped<IRoundQueryRepository, RoundQueryRepository>();
 
         return services;
     }

@@ -1,7 +1,7 @@
-﻿using BattleJop.Api.Application.Services.Teams;
+﻿using BattleJop.Api.Application.Services.Rounds;
+using BattleJop.Api.Application.Services.Teams;
 using BattleJop.Api.Application.Services.Tournaments;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace BattleJop.Api.Application.Extensions;
 
@@ -11,6 +11,7 @@ public static class ServiceExtensions
     {
         services.AddScoped<ITournamentService, TournamentService>();
         services.AddScoped<ITeamService, TeamService>();
+        services.AddScoped<IRoundService, RoundService>();
 
         return services;
     }

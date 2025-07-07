@@ -18,7 +18,7 @@ public class TeamModule : AbstractModule, ICarterModule
         async (Guid tournamentId, Guid teamId, ITeamService teamService, CancellationToken cancellationToken) =>
         {
         //Get Teams
-        var result = await teamService.GetTeamsByTournamentIdAndId(tournamentId, teamId, cancellationToken);
+        var result = await teamService.GetTeamByTournamentIdAndId(tournamentId, teamId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.ToTeamResponse());
         });

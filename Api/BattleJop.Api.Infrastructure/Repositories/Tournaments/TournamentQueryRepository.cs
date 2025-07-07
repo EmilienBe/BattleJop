@@ -6,10 +6,17 @@ namespace BattleJop.Api.Infrastructure.Repositories.Tournaments;
 
 public class TournamentQueryRepository(BattleJopDbContext context) : AbstractQueryRepository<Tournament>(context), ITournamentQueryRepository
 {
-    public async Task<Tournament?> GetByIdInculeTeamAndPlayerAsync(Guid id, CancellationToken cancellationToken) =>
+    public async Task<Tournament?> GetByIdInculeRoundsAsync(Guid tournamentId, CancellationToken cancellationToken) =>
+        await _dbSet
+        .AsNoTracking()
+        .Include(t => t.Rounds)
+        .FirstOrDefaultAsync(t => t.Id == tournamentId, cancellationToken);
+
+
+    public async Task<Tournament?> GetByIdInculeTeamAndPlayerAsync(Guid tournamentId, CancellationToken cancellationToken) =>
         await _dbSet
         .AsNoTracking()
         .Include(t => t.Teams)
         .ThenInclude(t => t.Players)
-        .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
+        .FirstOrDefaultAsync(t => t.Id == tournamentId, cancellationToken);
 }
