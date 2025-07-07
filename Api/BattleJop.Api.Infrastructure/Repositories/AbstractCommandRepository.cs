@@ -1,9 +1,10 @@
-﻿using BattleJop.Api.Infrastructure.Datas;
+﻿using BattleJop.Api.Domain;
+using BattleJop.Api.Infrastructure.Datas;
 using Microsoft.EntityFrameworkCore;
 
 namespace BattleJop.Api.Infrastructure.Repositories;
 
-public abstract class AbstractCommandRepository<TEntity> where TEntity : class
+public abstract class AbstractCommandRepository<TEntity> where TEntity : Aggregate 
 {
     protected readonly BattleJopDbContext _context;
     protected readonly DbSet<TEntity> _dbSet;
@@ -43,4 +44,7 @@ public abstract class AbstractCommandRepository<TEntity> where TEntity : class
 
         _dbSet.Remove(entityToDelete);
     }
+
+    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken) => 
+        await _dbSet.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 }

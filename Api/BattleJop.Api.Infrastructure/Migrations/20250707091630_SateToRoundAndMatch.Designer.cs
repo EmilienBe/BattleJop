@@ -3,6 +3,7 @@ using System;
 using BattleJop.Api.Infrastructure.Datas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BattleJop.Api.Infrastructure.Migrations
 {
     [DbContext(typeof(BattleJopDbContext))]
-    partial class BattleJopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250707091630_SateToRoundAndMatch")]
+    partial class SateToRoundAndMatch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

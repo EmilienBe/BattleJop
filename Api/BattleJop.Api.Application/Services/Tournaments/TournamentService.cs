@@ -4,15 +4,12 @@ using BattleJop.Api.Core.ModelActionResult;
 using BattleJop.Api.Infrastructure.Repositories.Tournaments;
 using BattleJop.Api.Infrastructure.Repositories.Matchs;
 using BattleJop.Api.Infrastructure.Repositories.MatchTeams;
+using BattleJop.Api.Infrastructure.Repositories.Rounds;
 
 namespace BattleJop.Api.Application.Services.Tournaments;
 
-public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandRepository tournamentCommandRepository, ITournamentQueryRepository tournamentQueryRepository, IMatchCommandRepository matchCommandRepository, IMatchTeamCommandRepository matchTeamCommandRepository) : ITournamentService
+public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandRepository tournamentCommandRepository, ITournamentQueryRepository tournamentQueryRepository, IMatchCommandRepository matchCommandRepository, IMatchTeamCommandRepository matchTeamCommandRepository, IRoundCommandRepository roundCommandRepository) : ITournamentService
 {
-
-
-
-
     public async Task<ModelActionResult<Tournament>> AddAsync(string name, int numberOfRounds, CancellationToken cancellationToken)
     {
         var tournament = new Tournament(Guid.NewGuid(), name);
@@ -73,9 +70,11 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
 
         var result = tournament.GenerateInitialMatches(firstRound);
 
+        firstRound.UpdateState(RoundState.InProgress);
         tournament.UpdateState(TournamentState.InProgress);
   
         tournamentCommandRepository.Update(tournament);
+        roundCommandRepository.Update(firstRound);
         matchCommandRepository.Add(result.matches);
         matchTeamCommandRepository.Add(result.matchTeams);
 

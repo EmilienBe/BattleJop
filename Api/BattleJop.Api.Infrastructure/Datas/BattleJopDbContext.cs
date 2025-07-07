@@ -3,7 +3,6 @@ using BattleJop.Api.Domain;
 using BattleJop.Api.Domain.TournamentAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace BattleJop.Api.Infrastructure.Datas;
 

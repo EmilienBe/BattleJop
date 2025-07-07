@@ -6,9 +6,6 @@ namespace BattleJop.Api.Infrastructure.Repositories.Tournaments;
 
 public class TournamentCommandRepository(BattleJopDbContext context) : AbstractCommandRepository<Tournament>(context), ITournamentCommandRepository
 {
-    public async Task<Tournament?> GetByIdAsync(Guid id, CancellationToken cancellationToken) =>
-        await _context.Tournaments.FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
-
     public async Task<Tournament?> GetByIdInculeTeamAndRoundAsync(Guid tournamentId, CancellationToken cancellationToken) =>
         await _context.Tournaments
         .Include(t => t.Teams)

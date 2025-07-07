@@ -8,6 +8,8 @@ public class Match : Aggregate
 
     public int RunningOrder { get; private set; }
 
+    public MatchState State { get; private set; }
+
     public Round Round { get; private set; }
 
     public ICollection<MatchTeam> Scores { get; private set; }
@@ -17,6 +19,7 @@ public class Match : Aggregate
         ArgumentNullException.ThrowIfNull(round, nameof(round));
 
         Id = id;
+        State = MatchState.InProgress;
         RunningOrder = runningOrder;
         Round = round;
         Scores = [];
@@ -27,4 +30,10 @@ public class Match : Aggregate
         ArgumentNullException.ThrowIfNull(scrore, nameof(scrore));
         Scores.Add(scrore);
     }
+}
+
+public enum MatchState
+{
+    InProgress = 0,
+    Finished = 1
 }

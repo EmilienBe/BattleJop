@@ -1,7 +1,5 @@
 ﻿using BattleJop.Api.Domain.TournamentAggregate;
 using BattleJop.Api.Web;
-using BattleJop.Api.Web.Dtos;
-using Docker.DotNet.Models;
 using System.Net;
 using System.Text.Json;
 
