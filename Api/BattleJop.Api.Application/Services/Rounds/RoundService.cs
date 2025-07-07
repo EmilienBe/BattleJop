@@ -18,6 +18,9 @@ public class RoundService (ITournamentQueryRepository tournamentQueryRepository,
         if (round == null)
             return ModelActionResult<Round>.Fail(FaultType.ROUND_NOT_FOUND, $"The round with identifier '{roundId}' does not exist.");
 
+        if (round.State == RoundState.NotStarted)
+            return ModelActionResult<Round>.Fail(FaultType.ROUND_INVALID_STATE, $"The round must have started or been completed to retrieve the details.");
+
         return ModelActionResult<Round>.Ok(round);
     }
 

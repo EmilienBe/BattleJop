@@ -15,6 +15,7 @@ public abstract class AbstractModule
             case FaultType.TOURNAMENT_INVALID_STATE:
             case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:
             case FaultType.TOURNAMENT_NO_ROUND_EXIST:
+            case FaultType.ROUND_INVALID_STATE:
                 return Results.Conflict(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.OK:
                 return Results.Ok(result);
@@ -38,6 +39,7 @@ public abstract class AbstractModule
             case FaultType.TOURNAMENT_INVALID_STATE:
             case FaultType.TOURNAMENT_INVALID_NUMBER_TEAMS:
             case FaultType.TOURNAMENT_NO_ROUND_EXIST:
+            case FaultType.ROUND_INVALID_STATE:
                 return Results.Conflict(new ErrorResponse(modelActionResult.FaultType, modelActionResult.Message));
             case FaultType.OK_NO_CONTENT:
                 return Results.NoContent();
