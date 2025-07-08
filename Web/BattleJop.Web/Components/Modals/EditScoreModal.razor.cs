@@ -1,4 +1,4 @@
-﻿using BattleJop.Api.Domain.TournamentAggregate;
+﻿using BattleJop.Web.Dto;
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 
@@ -8,9 +8,7 @@ namespace BattleJop.Web.Components.Modals
     public partial class EditScoreModal
     {
 
-        [Parameter] public required Match Match { get; set; }
-        [Parameter] public required int ScoreA { get; set; }
-        [Parameter] public required int ScoreB { get; set; }
+        [Parameter] public required MatchDto Match { get; set; }
         [Parameter] public EventCallback<Modal> OnModalReady { get; set; }
         [Parameter] public EventCallback<(int, int)> OnConfirmed { get; set; }
 
@@ -23,8 +21,8 @@ namespace BattleJop.Web.Components.Modals
         private Modal InternalModal;
         protected override void OnInitialized()
         {
-            EditableScoreA = ScoreA;
-            EditableScoreB = ScoreB;
+            EditableScoreA = Match.ScoreA;
+            EditableScoreB = Match.ScoreB;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

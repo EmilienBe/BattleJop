@@ -1,30 +1,67 @@
-﻿using BattleJop.Api.Domain.TournamentAggregate;
+﻿using BattleJop.Web.Dto;
 
 namespace BattleJop.Web;
 
 public class TournamentApiClient(HttpClient httpClient)
 {
-    private static readonly Tournament _tournament = new(Guid.NewGuid(), "");
-
-    public Task<Round> GetCurrentRound()
+    public Task<RoundDto> GetCurrentRound()
     {
-        var round = new Round(Guid.NewGuid(), 1, _tournament);
-
-        round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
+        var round = new RoundDto
         {
-        });
-        round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
+            RunningOrder = 1
+        };
+
+        round.Matches.Add(new MatchDto()
+        {
+            TeamA = new TeamDto()
             {
-
+                Name = "Les Loulous",
+                Players = Tuple.Create("Toto", "Tamo")
+            },
+            TeamB = new TeamDto()
+            {
+                Name = "Les Foufous",
+                Players = Tuple.Create("Manon", "Marion")
             }
-        );
-        round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
-        {
-
         });
-        round.AddMatch(new Match(Guid.NewGuid(), 1, new Round())
+        round.Matches.Add(new MatchDto()
         {
-
+            TeamA = new TeamDto()
+            {
+                Name = "Les Foufous",
+                Players = Tuple.Create("Manon", "Marion")
+            },
+            TeamB = new TeamDto()
+            {
+                Name = "Les BG",
+                Players = Tuple.Create("Mimi", "Mat")
+            }
+        });
+        round.Matches.Add(new MatchDto()
+        {
+            TeamA = new TeamDto()
+            {
+                Name = "Les BG",
+                Players = Tuple.Create("Mimi", "Mat")
+            },
+            TeamB = new TeamDto()
+            {
+                Name = "Les Loulous",
+                Players = Tuple.Create("Toto", "Tamo")
+            }
+        });
+        round.Matches.Add(new MatchDto()
+        {
+            TeamA = new TeamDto()
+            {
+                Name = "Les Déchainés",
+                Players = Tuple.Create("Tutu", "Tepin")
+            },
+            TeamB = new TeamDto()
+            {
+                Name = "Les BG",
+                Players = Tuple.Create("Mimi", "Mat")
+            }
         });
 
         return Task.FromResult(round);

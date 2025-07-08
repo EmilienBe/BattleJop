@@ -1,10 +1,10 @@
-﻿using TournamentAggregate = BattleJop.Api.Domain.TournamentAggregate;
+﻿using BattleJop.Web.Dto;
 
 namespace BattleJop.Web.Components.Pages.Round
 {
     public partial class Round
     {
-        private TournamentAggregate.Round _round = new();
+        private RoundDto _round = new();
 
         protected override async Task OnInitializedAsync()
         {
