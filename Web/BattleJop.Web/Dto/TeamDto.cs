@@ -4,5 +4,6 @@
     {
         public string Name { get; set; }
         public Tuple<string, string> Players { get; set; }
+
     }
 }

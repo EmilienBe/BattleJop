@@ -66,4 +66,56 @@ public class TournamentApiClient(HttpClient httpClient)
 
         return Task.FromResult(round);
     }
+
+    public Task<List<RankingDto>> GetRankings()
+    {
+        var ranking = new List<RankingDto>
+        {
+            new() {
+                Team = new TeamDto
+                {
+                    Name = "Les Loulous",
+                    Players = Tuple.Create("Toto", "Tamo")
+                },
+                Wins = 2,
+                Losses = 1,
+                Pucks = 5,
+                Points = 6
+            },
+            new() {
+                Team = new TeamDto
+                {
+                    Name = "Les Foufous",
+                    Players = Tuple.Create("Manon", "Marion")
+                },
+                Wins = 1,
+                Losses = 2,
+                Pucks = 3,
+                Points = 3
+            },
+            new() {
+                Team = new TeamDto
+                {
+                    Name = "Les BG",
+                    Players = Tuple.Create("Mimi", "Mat")
+                },
+                Wins = 2,
+                Losses = 1,
+                Pucks = 4,
+                Points = 6
+            },
+            new() {
+                Team = new TeamDto
+                {
+                    Name = "Les Déchainés",
+                    Players = Tuple.Create("Tutu", "Tepin")
+                },
+                Wins = 0,
+                Losses = 3,
+                Pucks = 1,
+                Points = -10
+            }
+        }.OrderByDescending(r => r.Wins).ThenByDescending(r => r.Points).ThenByDescending(r => r.Pucks).ToList();
+        return Task.FromResult(ranking);
+    }
 }
