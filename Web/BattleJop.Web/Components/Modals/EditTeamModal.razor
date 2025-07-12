@@ -1,0 +1,31 @@
+﻿<Modal @ref="@InternalModal" IsVerticallyCentered="true" ShowCloseButton="false">
+    <BodyTemplate>
+        <div class="header">
+            <h3>Editer une équipe</h3>
+        </div>
+        <div class="spacer"></div>
+        <div class="line">
+            <label>Nom de l'équipe</label>
+            <input class="input" @bind="TeamName" type="text" />
+        </div>
+        <div class="line">
+            <label>Joueur 1</label>
+            <input class="input" @bind="@Player1Name" type="text" />
+        </div>
+        <div class="line">
+            <label>Joueur 2</label>
+            <input class="input" @bind="@Player2Name" type="text" />
+        </div>
+
+        <hr/>
+
+        <div class="line buttons">
+            <button class="golden-button validate" @onclick="OnValidateAsync">Valider</button>
+            
+            @if (OnTeamDeleted.HasDelegate)
+            {
+                <button class="golden-button cancel" @onclick="OnDeleteAsync">Supprimer</button>   
+            }
+        </div>
+    </BodyTemplate>
+</Modal>

@@ -1,0 +1,14 @@
+﻿@using BattleJop.Web.Components.Modals
+<Card @onclick="OnShowModalClick">
+    <div class ="card">
+        <div class="team">
+           @Team.Name
+        </div>
+        <div class="players">
+            <div>@Team.Players.Item1</div>
+            <div>@Team.Players.Item2</div>
+        </div>
+    </div>
+</Card>
+
+<EditTeamModal Team="@Team"  OnModalReady="@HandleModalReady" OnTeamSaved="@OnTeamSaved" OnTeamDeleted="@OnTeamDeletedInternal"></EditTeamModal>
