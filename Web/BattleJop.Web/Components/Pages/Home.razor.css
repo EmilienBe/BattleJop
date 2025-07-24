@@ -21,7 +21,7 @@
 
 .title {
     position: absolute;
-    top: 30%;
+    top: 32%;
     left: 50%;
     transform: translateX(-50%);
     font-size: 6rem
@@ -29,4 +29,10 @@
 
 .spacer {
     height: 1.5rem;
+}
+
+img {
+    position: absolute;
+    width: 12rem;
+    top: 10%;
 }

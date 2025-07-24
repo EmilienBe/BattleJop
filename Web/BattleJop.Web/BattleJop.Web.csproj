@@ -50,4 +50,8 @@
       <ProjectReference Include="..\..\BattleJop.ServiceDefaults\BattleJop.ServiceDefaults.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\images\Logo.svg" />
+    </ItemGroup>
+
 </Project>

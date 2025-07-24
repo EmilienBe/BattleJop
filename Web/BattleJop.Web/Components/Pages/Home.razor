@@ -6,9 +6,10 @@
 
 <div class="home">
     <h1 class="title">J.O.P</h1>
+    <img class="logo" src="images/Logo.svg" alt="JOP"/>
     <div class="button-list">
-        <button class="golden-button" @onclick="CreateTournamentAsync">
-            Commencer un tournoi
+        <button class="golden-button" @onclick="GoToCreation">
+            Créer un tournoi
         </button>
         <div class="spacer"></div>
         <button class="golden-button" @onclick="GoToRound">
@@ -16,6 +17,3 @@
         </button>
     </div>
 </div>
-
-
-<InitTournamentModal OnModalReady="@HandleModalReady"></InitTournamentModal>

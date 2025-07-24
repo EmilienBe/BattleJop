@@ -90,3 +90,10 @@ h1:focus {
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
         background-color: #7b5e3c;
     }
+
+.spacer {
+    height: 1rem
+}
+.half-spacer{
+    height: 0.5rem;
+}
