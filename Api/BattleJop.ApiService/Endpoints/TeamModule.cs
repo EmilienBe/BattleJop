@@ -13,7 +13,7 @@ public class TeamModule : AbstractModule, ICarterModule
     {
         app.MapGet("tournaments/{tournamentId:guid}/teams/{teamId}",
         [Tags("Teams")]
-        [ProducesResponseType<ICollection<TeamResponse>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<TeamResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
         async (Guid tournamentId, Guid teamId, ITeamService teamService, CancellationToken cancellationToken) =>
         {

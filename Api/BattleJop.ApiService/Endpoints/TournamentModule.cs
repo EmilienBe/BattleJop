@@ -44,7 +44,7 @@ public class TournamentModule : AbstractModule, ICarterModule
 
         app.MapGet("tournaments",
         [Tags("Tournaments")]
-        [ProducesResponseType<TournamentResponse>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ICollection<TournamentResponse>>(StatusCodes.Status200OK)]
         async (ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Get Tournaments
@@ -55,7 +55,7 @@ public class TournamentModule : AbstractModule, ICarterModule
 
         app.MapPost("tournaments/{id:guid}/start",
         [Tags("Tournaments")]
-        [ProducesResponseType<TournamentResponse>(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
         async (Guid id, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {

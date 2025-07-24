@@ -12,7 +12,7 @@ public class RoundModule : AbstractModule, ICarterModule
     {
         app.MapGet("tournaments/{tournamentId:guid}/rounds/{roundId}",
         [Tags("Rounds")]
-        [ProducesResponseType<ICollection<RoundDetailResponse>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<RoundDetailResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
         async (Guid tournamentId, Guid roundId, IRoundService roundService, CancellationToken cancellationToken) =>
         {
