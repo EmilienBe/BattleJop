@@ -15,6 +15,7 @@ public class TeamModule : AbstractModule, ICarterModule
         [Tags("Teams")]
         [ProducesResponseType<TeamResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Returns the details of a team.")]
         async (Guid tournamentId, Guid teamId, ITeamService teamService, CancellationToken cancellationToken) =>
         {
         //Get Teams
@@ -27,6 +28,7 @@ public class TeamModule : AbstractModule, ICarterModule
         [Tags("Teams")]
         [ProducesResponseType<ICollection<TeamResponse>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Returns the teams in a tournament.")]
         async (Guid tournamentId, ITeamService teamService, CancellationToken cancellationToken) =>
         {
             //Get Teams
@@ -39,6 +41,7 @@ public class TeamModule : AbstractModule, ICarterModule
         [Tags("Teams")]
         [ProducesResponseType<TeamResponse>(StatusCodes.Status201Created)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Add a team to a tournament")]
         async (Guid tournamentId, AddTeamRequest request, ITeamService teamService, CancellationToken cancellationToken) =>
         {
             //Validation

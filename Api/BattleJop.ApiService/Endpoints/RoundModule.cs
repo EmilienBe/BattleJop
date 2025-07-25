@@ -14,6 +14,7 @@ public class RoundModule : AbstractModule, ICarterModule
         [Tags("Rounds")]
         [ProducesResponseType<RoundDetailResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Returns details of a round and its matchs.")]
         async (Guid tournamentId, Guid roundId, IRoundService roundService, CancellationToken cancellationToken) =>
         {
             //Get round
@@ -26,6 +27,7 @@ public class RoundModule : AbstractModule, ICarterModule
         [Tags("Rounds")]
         [ProducesResponseType<ICollection<RoundResponse>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Returns the tournament rounds.")]
         async (Guid tournamentId, IRoundService roundService, CancellationToken cancellationToken) =>
         {
             //Get rounds

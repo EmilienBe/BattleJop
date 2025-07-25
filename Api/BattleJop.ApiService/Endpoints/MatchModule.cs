@@ -14,6 +14,7 @@ public class MatchModule : AbstractModule, ICarterModule
         [Tags("Matchs")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("End of a match with the final score.")]
         async (Guid matchId, FinishMatchRequest request, IMatchService matchService, CancellationToken cancellationToken) =>
         {
             //Finish match

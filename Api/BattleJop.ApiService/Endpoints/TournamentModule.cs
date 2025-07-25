@@ -16,6 +16,7 @@ public class TournamentModule : AbstractModule, ICarterModule
         [Tags("Tournaments")]
         [ProducesResponseType<TournamentResponse>(StatusCodes.Status201Created)]
         [ProducesResponseType<List<ValidationFailure>>(StatusCodes.Status400BadRequest)]
+        [EndpointDescription("Add a tournament.")]
         async (AddTournamentRequest request, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Validation
@@ -30,14 +31,15 @@ public class TournamentModule : AbstractModule, ICarterModule
             return ResolveActionResult(result, result.Result.ToTournamentResponse(), $"tournaments/{result.Result?.Id}");
         });
 
-        app.MapGet("tournaments/{id:guid}",
+        app.MapGet("tournaments/{tournamentId:guid}",
         [Tags("Tournaments")]
         [ProducesResponseType<TournamentResponse>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
-        async (Guid id, ITournamentService tournamentService, CancellationToken cancellationToken) =>
+        [EndpointDescription("Returns the details of a tournament.")]
+        async (Guid tournamentId, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Get Tournament
-            var result = await tournamentService.GetByIdAsync(id, cancellationToken);
+            var result = await tournamentService.GetByIdAsync(tournamentId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.ToTournamentResponse());
         });
@@ -45,6 +47,7 @@ public class TournamentModule : AbstractModule, ICarterModule
         app.MapGet("tournaments",
         [Tags("Tournaments")]
         [ProducesResponseType<ICollection<TournamentResponse>>(StatusCodes.Status200OK)]
+        [EndpointDescription("Returns tournaments.")]
         async (ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Get Tournaments
@@ -57,6 +60,7 @@ public class TournamentModule : AbstractModule, ICarterModule
         [Tags("Tournaments")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Start of a tournament.")]
         async (Guid tournamentId, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Start Tournament
@@ -69,6 +73,7 @@ public class TournamentModule : AbstractModule, ICarterModule
         [Tags("Tournaments")]
         [ProducesResponseType<ICollection<RankingResponse>>(StatusCodes.Status200OK)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        [EndpointDescription("Returns the live ranking of a tournament.")]
         async (Guid tournamentId, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Get Ranking
