@@ -5,6 +5,6 @@ namespace BattleJop.Api.Application.Services.Rounds;
 
 public interface IRoundService
 {
-    Task<ModelActionResult<ICollection<Round>>> GetRoundsByTournamentId(Guid tournamentId, CancellationToken cancellationToken);
-    Task<ModelActionResult<Round>> GetRoundByTournamentIdAndId(Guid tournamentId, Guid roundId, CancellationToken cancellationToken);
+    Task<ModelActionResult<ICollection<Round>>> GetRoundsByTournamentIdAsync(Guid tournamentId, CancellationToken cancellationToken);
+    Task<ModelActionResult<Round>> GetRoundByTournamentIdAndIdAsync(Guid tournamentId, Guid roundId, CancellationToken cancellationToken);
 }

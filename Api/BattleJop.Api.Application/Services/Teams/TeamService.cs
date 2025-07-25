@@ -28,7 +28,7 @@ public class TeamService : ITeamService
         _playerCommandRepository = playerCommandRepository;
     }
 
-    public async Task<ModelActionResult<Team>> AddTeamToTournament(Guid tournamentId, string name, List<string> playerNames, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<Team>> AddTeamToTournamentAsync(Guid tournamentId, string name, List<string> playerNames, CancellationToken cancellationToken)
     {
         var tournament = await _tournamentCommandRepository.GetByIdAsync(tournamentId, cancellationToken);
 
@@ -51,7 +51,7 @@ public class TeamService : ITeamService
         return ModelActionResult<Team>.Created(team);
     }
 
-    public async Task<ModelActionResult<ICollection<Team>>> GetTeamsByTournamentId(Guid tournamentId, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<ICollection<Team>>> GetTeamsByTournamentIdAsync(Guid tournamentId, CancellationToken cancellationToken)
     {
         var tournament = await _tournamentQueryRepository.GetByIdInculeTeamAndPlayerAsync(tournamentId, cancellationToken);
 
@@ -61,7 +61,7 @@ public class TeamService : ITeamService
         return ModelActionResult<ICollection<Team>>.Ok(tournament.Teams);
     }
 
-    public async Task<ModelActionResult<Team>> GetTeamByTournamentIdAndId(Guid tournamentId, Guid teamId, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<Team>> GetTeamByTournamentIdAndIdAsync(Guid tournamentId, Guid teamId, CancellationToken cancellationToken)
     {
         var tournament = await _tournamentQueryRepository.GetByIdInculeTeamAndPlayerAsync(tournamentId, cancellationToken);
 

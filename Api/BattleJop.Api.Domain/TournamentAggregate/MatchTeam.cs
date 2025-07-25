@@ -13,6 +13,13 @@ public class MatchTeam : Aggregate
         Team = team;
     }
 
+    public void UpdateScore(int score, int remainingPuck, bool isWinner)
+    {
+        Score = score;
+        RemainingPuck = remainingPuck;
+        IsWinner = isWinner;
+    }
+
     public int Score { get; set; }
 
     public bool IsWinner { get; set; }

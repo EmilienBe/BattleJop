@@ -18,7 +18,7 @@ public class TeamModule : AbstractModule, ICarterModule
         async (Guid tournamentId, Guid teamId, ITeamService teamService, CancellationToken cancellationToken) =>
         {
         //Get Teams
-        var result = await teamService.GetTeamByTournamentIdAndId(tournamentId, teamId, cancellationToken);
+        var result = await teamService.GetTeamByTournamentIdAndIdAsync(tournamentId, teamId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.ToTeamResponse());
         });
@@ -30,7 +30,7 @@ public class TeamModule : AbstractModule, ICarterModule
         async (Guid tournamentId, ITeamService teamService, CancellationToken cancellationToken) =>
         {
             //Get Teams
-            var result = await teamService.GetTeamsByTournamentId(tournamentId, cancellationToken);
+            var result = await teamService.GetTeamsByTournamentIdAsync(tournamentId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.Select(t => t.ToTeamResponse()));
         });
@@ -48,7 +48,7 @@ public class TeamModule : AbstractModule, ICarterModule
                 return Results.BadRequest(validatorResult.Errors);
 
             //Get Teams
-            var result = await teamService.AddTeamToTournament(tournamentId, request.Name, request.Players, cancellationToken);
+            var result = await teamService.AddTeamToTournamentAsync(tournamentId, request.Name, request.Players, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.ToTeamResponse(), $"/tournaments/{tournamentId}/teams/{result.Result?.Id}");
         });

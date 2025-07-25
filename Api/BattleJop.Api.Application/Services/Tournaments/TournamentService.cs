@@ -48,6 +48,8 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
         return ModelActionResult<Tournament>.Ok(tournament);
     }
 
+
+
     public async Task<ModelActionResult> StartAsync(Guid id, CancellationToken cancellationToken)
     {
         var tournament = await tournamentCommandRepository.GetByIdInculeTeamAndRoundAsync(id, cancellationToken);
@@ -72,7 +74,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
 
         firstRound.UpdateState(RoundState.InProgress);
         tournament.UpdateState(TournamentState.InProgress);
-  
+
         tournamentCommandRepository.Update(tournament);
         roundCommandRepository.Update(firstRound);
         matchCommandRepository.Add(result.matches);
@@ -83,9 +85,41 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
         return ModelActionResult.Ok();
     }
 
-    public async Task<ModelActionResult<Tournament>> UpdateAsync(string name, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<ICollection<RankTeamWithPosition>>> GetRanking(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var tournament = await tournamentQueryRepository.GetByIdInculeScoresAsync(id, cancellationToken);
+
+        if (tournament == null)
+            return ModelActionResult<ICollection<RankTeamWithPosition>>.Fail(FaultType.TOURNAMENT_NOT_FOUND, $"The tournament with identifier '{id}' does not exist.");
+
+        var rankingWithPositions = tournament.Teams
+            .Select(team =>
+            {
+                var victories = team.Scores.Count(s => s.IsWinner);
+                var totalScore = team.Scores.Sum(s => s.Score);
+                var totalRemainingPuck = team.Scores.Sum(s => s.RemainingPuck);
+
+                return new RankTeam(
+                    TeamId: team.Id,
+                    TeamName: team.Name,
+                    NumberOfVictory: victories,
+                    TotalScore: totalScore,
+                    TotalRemainingPuck: totalRemainingPuck
+                );
+            })
+            .OrderByDescending(r => r.NumberOfVictory)
+            .ThenByDescending(r => r.TotalScore)
+            .ThenByDescending(r => r.TotalRemainingPuck)
+            .Select((team, index) => new RankTeamWithPosition(
+                Rank: index + 1,
+                TeamId: team.TeamId,
+                TeamName: team.TeamName,
+                NumberOfVictory: team.NumberOfVictory,
+                TotalScore: team.TotalScore,
+                TotalRemainingPuck: team.TotalRemainingPuck
+            ))
+            .ToList();
+
+        return ModelActionResult<ICollection<RankTeamWithPosition>>.Ok(rankingWithPositions);
     }
 }
-

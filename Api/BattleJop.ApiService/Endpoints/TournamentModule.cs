@@ -53,16 +53,28 @@ public class TournamentModule : AbstractModule, ICarterModule
             return ResolveActionResult(result, result.Result?.Select(t => t.ToTournamentResponse()));
         });
 
-        app.MapPost("tournaments/{id:guid}/start",
+        app.MapPost("tournaments/{tournamentId:guid}/start",
         [Tags("Tournaments")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
-        async (Guid id, ITournamentService tournamentService, CancellationToken cancellationToken) =>
+        async (Guid tournamentId, ITournamentService tournamentService, CancellationToken cancellationToken) =>
         {
             //Start Tournament
-            var result = await tournamentService.StartAsync(id, cancellationToken);
+            var result = await tournamentService.StartAsync(tournamentId, cancellationToken);
 
             return ResolveActionResult(result);
+        });
+
+        app.MapGet("tournaments/{tournamentId:guid}/ranking",
+        [Tags("Tournaments")]
+        [ProducesResponseType<ICollection<RankingResponse>>(StatusCodes.Status200OK)]
+        [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+        async (Guid tournamentId, ITournamentService tournamentService, CancellationToken cancellationToken) =>
+        {
+            //Get Ranking
+            var result = await tournamentService.GetRanking(tournamentId, cancellationToken);
+
+            return ResolveActionResult(result, result.Result?.Select(r => r.ToRankingResponse()));
         });
     }
 }

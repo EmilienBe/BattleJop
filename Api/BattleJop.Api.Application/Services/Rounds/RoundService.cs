@@ -7,7 +7,7 @@ namespace BattleJop.Api.Application.Services.Rounds;
 
 public class RoundService (ITournamentQueryRepository tournamentQueryRepository, IRoundQueryRepository roundQueryRepository) : IRoundService
 {
-    public async Task<ModelActionResult<Round>> GetRoundByTournamentIdAndId(Guid tournamentId, Guid roundId, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<Round>> GetRoundByTournamentIdAndIdAsync(Guid tournamentId, Guid roundId, CancellationToken cancellationToken)
     {
         var tournament = await tournamentQueryRepository.GetByIdInculeRoundsAsync(tournamentId, cancellationToken);
 
@@ -24,7 +24,7 @@ public class RoundService (ITournamentQueryRepository tournamentQueryRepository,
         return ModelActionResult<Round>.Ok(round);
     }
 
-    public async Task<ModelActionResult<ICollection<Round>>> GetRoundsByTournamentId(Guid tournamentId, CancellationToken cancellationToken)
+    public async Task<ModelActionResult<ICollection<Round>>> GetRoundsByTournamentIdAsync(Guid tournamentId, CancellationToken cancellationToken)
     {
         var tournament = await tournamentQueryRepository.GetByIdInculeRoundsAsync(tournamentId, cancellationToken);
 

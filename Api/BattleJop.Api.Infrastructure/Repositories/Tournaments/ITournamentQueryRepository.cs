@@ -6,4 +6,5 @@ public interface ITournamentQueryRepository : IQueryRepository<Tournament>
 {
     Task<Tournament?> GetByIdInculeTeamAndPlayerAsync(Guid tournamentId, CancellationToken cancellationToken);
     Task<Tournament?> GetByIdInculeRoundsAsync(Guid tournamentId, CancellationToken cancellationToken);
+    Task<Tournament?> GetByIdInculeScoresAsync(Guid tournamentId, CancellationToken cancellationToken);
 }

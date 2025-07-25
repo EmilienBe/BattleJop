@@ -30,6 +30,10 @@ public class Match : Aggregate
         ArgumentNullException.ThrowIfNull(scrore, nameof(scrore));
         Scores.Add(scrore);
     }
+
+    public void Finish() => State = MatchState.Finished;
+
+    public bool IsFinish() => State == MatchState.Finished;
 }
 
 public enum MatchState

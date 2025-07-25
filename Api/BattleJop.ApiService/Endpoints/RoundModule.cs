@@ -17,7 +17,7 @@ public class RoundModule : AbstractModule, ICarterModule
         async (Guid tournamentId, Guid roundId, IRoundService roundService, CancellationToken cancellationToken) =>
         {
             //Get round
-            var result = await roundService.GetRoundByTournamentIdAndId(tournamentId, roundId, cancellationToken);
+            var result = await roundService.GetRoundByTournamentIdAndIdAsync(tournamentId, roundId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.ToRoundDetailResponse());
         });
@@ -29,7 +29,7 @@ public class RoundModule : AbstractModule, ICarterModule
         async (Guid tournamentId, IRoundService roundService, CancellationToken cancellationToken) =>
         {
             //Get rounds
-            var result = await roundService.GetRoundsByTournamentId(tournamentId, cancellationToken);
+            var result = await roundService.GetRoundsByTournamentIdAsync(tournamentId, cancellationToken);
 
             return ResolveActionResult(result, result.Result?.Select(t => t.ToRoundResponse()).OrderBy(r => r.RunningOrder));
         });
