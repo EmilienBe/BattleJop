@@ -11,6 +11,7 @@ public static class RankingMapper
         TeamId = source.TeamId,
         TeamName = source.TeamName,
         NumberOfVictory = source.NumberOfVictory,
+        NumberOfDefeat = source.NumberOfDefeat,
         TotalScore = source.TotalScore,
         TotalRemainingPuck = source.TotalRemainingPuck 
     };

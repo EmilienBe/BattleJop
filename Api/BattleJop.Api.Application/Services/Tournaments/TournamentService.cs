@@ -96,6 +96,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
             .Select(team =>
             {
                 var victories = team.Scores.Count(s => s.IsWinner);
+                var defeats = team.Scores.Count(s => !s.IsWinner);
                 var totalScore = team.Scores.Sum(s => s.Score);
                 var totalRemainingPuck = team.Scores.Sum(s => s.RemainingPuck);
 
@@ -103,6 +104,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
                     TeamId: team.Id,
                     TeamName: team.Name,
                     NumberOfVictory: victories,
+                    NumberOfDefeat: defeats,
                     TotalScore: totalScore,
                     TotalRemainingPuck: totalRemainingPuck
                 );
@@ -115,6 +117,7 @@ public class TournamentService(IUnitOfWork unitOfWork, ITournamentCommandReposit
                 TeamId: team.TeamId,
                 TeamName: team.TeamName,
                 NumberOfVictory: team.NumberOfVictory,
+                NumberOfDefeat : team.NumberOfDefeat,
                 TotalScore: team.TotalScore,
                 TotalRemainingPuck: team.TotalRemainingPuck
             ))

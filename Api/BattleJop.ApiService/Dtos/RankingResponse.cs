@@ -16,6 +16,9 @@ public class RankingResponse
     [JsonPropertyName("numberOfVictory")]
     public int NumberOfVictory { get; set; }
 
+    [JsonPropertyName("numberOfDefeat")]
+    public int NumberOfDefeat { get; set; }
+
     [JsonPropertyName("totalScore")]
     public int TotalScore { get; set; }
 

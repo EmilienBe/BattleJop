@@ -8,6 +8,8 @@ public record RankTeam(
 
     int NumberOfVictory,
 
+    int NumberOfDefeat,
+
     int TotalScore,
 
     int TotalRemainingPuck
@@ -22,6 +24,8 @@ public record RankTeamWithPosition(
     string TeamName,
 
     int NumberOfVictory,
+
+    int NumberOfDefeat,
 
     int TotalScore,
 
