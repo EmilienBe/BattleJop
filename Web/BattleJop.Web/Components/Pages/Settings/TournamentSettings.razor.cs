@@ -1,15 +1,18 @@
 ﻿using BattleJop.Web.Dto;
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace BattleJop.Web.Components.Pages.Settings
 {
-    public partial class TournamentSettings(NavigationManager navigation)
+    public partial class TournamentSettings(NavigationManager navigation, TournamentApiClient client, TournamentState tournamentState, ProtectedLocalStorage localStorage)
     {
         int RoundNumber { get; set; }
+        string TournamentName { get; set; } = "JOP 2025";
         private List<TeamDto> Teams { get; set; } = [];
 
         private Modal _modal = new();
+        private bool _isLoading = false;
         protected override void OnInitialized()
         {
 
@@ -35,8 +38,14 @@ namespace BattleJop.Web.Components.Pages.Settings
             Teams.Remove(team);
         }
 
-        private void CreateTournament()
+        private async Task CreateTournamentAsync()
         {
+            _isLoading = true;
+            Guid tournamentId = await client.CreateTournament(TournamentName, RoundNumber, Teams);
+
+            tournamentState.CurrentTournamentId = tournamentId;
+            await localStorage.SetAsync("tournamentId", tournamentId);
+
             navigation.NavigateTo("/round");
         }
     }

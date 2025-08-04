@@ -5,26 +5,32 @@
 @inject TournamentApiClient TournamentApi
 
 <PageTitle>Manche</PageTitle>
-
-<div class="header-container">
-    <h1>Manche @_round.RunningOrder</h1>
-    <img src="images/RankingIcon.svg" alt="Ranking" onclick="@CheckRanking" />
-</div>
-
-
-<div class="round-grid">
-    @foreach (var match in _round.Matches)
-    {
-        <MatchCard Match="match"></MatchCard>
-    }
-</div>
-
-<div class="spacer"></div>
-
-
-@if(_round.Matches.All(m => m.State == MatchState.Ended))
+@if (_isLoading)
 {
-    <div class="center-zone">
-        <button class="golden-button" onclick="@EndRound">Terminer la manche</button>
+    <Loader></Loader>
+}
+else
+{
+    <div class="header-container">
+        <h1>Manche @_round.RunningOrder</h1>
+        <img src="images/RankingIcon.svg" alt="Ranking" onclick="@CheckRanking" />
     </div>
+
+
+    <div class="round-grid">
+        @foreach (var match in _round.Matchs)
+        {
+            <MatchCard Match="match"></MatchCard>
+        }
+    </div>
+
+    <div class="spacer"></div>
+
+
+    @if(_round.Matchs.All(m => m.State == MatchState.Ended))
+    {
+        <div class="center-zone">
+            <button class="golden-button" onclick="@EndRound">Terminer la manche</button>
+        </div>
+    }
 }

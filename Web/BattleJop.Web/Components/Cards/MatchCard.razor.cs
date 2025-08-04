@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BattleJop.Web.Components.Cards
 {
-    public partial class MatchCard
+    public partial class MatchCard(TournamentApiClient client)
     {
         [Parameter] public required MatchDto Match { get; set; }
 
@@ -23,10 +23,15 @@ namespace BattleJop.Web.Components.Cards
             Match.State = state;
         }
 
-        private void HandleScoreConfirmed((int a, int b) result)
+        private async Task HandleScoreConfirmedAsync((int scoreA, int scoreB, int remainingPuckA, int remainingPuckB) result)
         {
-            Match.ScoreA = result.a;
-            Match.ScoreB = result.b;
+            Match.ScoreA = result.scoreA;
+            Match.ScoreB = result.scoreB;
+            Match.RemainingPuckA = result.remainingPuckA;
+            Match.RemainingPuckB = result.remainingPuckB;
+
+            await client.EndMatch(Match);
+
             UpdateMatchState(MatchState.Ended);
         }
 

@@ -22,10 +22,12 @@ builder.Services.AddHttpClient<WeatherApiClient>(client =>
 
 builder.Services.AddHttpClient<TournamentApiClient>(client =>
 {
-    client.BaseAddress = new Uri("https+http://apiservice");
+    client.BaseAddress = new Uri("https+http://localhost:7510");
 });
 
 builder.Services.AddBlazorBootstrap();
+
+builder.Services.AddScoped<TournamentState>();
 
 var app = builder.Build();
 

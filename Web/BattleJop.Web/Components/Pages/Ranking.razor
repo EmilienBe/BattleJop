@@ -1,34 +1,41 @@
 ﻿@page "/ranking"
-<div class="header-container">
-    <h1>Classement</h1>
-    <img src="images/ArrowIcon.svg" alt="Back" onclick="@OnReturn" />
-</div>
-
-<div class="rank">
-    <label class="responsive-label" data-short="Pl.">Place</label>
-    <label class="responsive-label" data-short="E.">Equipe</label>
-    <label class="responsive-label" data-short="V.">Victoires</label>
-    <label class="responsive-label hide-small">Défaites</label>
-    <label class="responsive-label" data-short="Pts.">Points</label>
-    <label class="responsive-label hide-small">Palets</label>
-</div>
-
-@for(int i =0; i < _rankings.Count; i++)
+@if (_isLoading)
 {
-    string positionClass = i switch
-    {
-        0 => "first",
-        1 => "second",
-        2 => "third",
-        _ => ""
-    };
-
-    <div class="card rank @positionClass">
-        <label>@(i+1)</label>
-        <label>@_rankings[i].Team.Name</label>
-        <label>@_rankings[i].Wins</label>
-        <label class="hide-small">@_rankings[i].Losses</label>
-        <label>@_rankings[i].Points</label>
-        <label class="hide-small">@_rankings[i].Pucks</label>
+    <Loader></Loader>
+}
+else
+{
+    <div class="header-container">
+        <h1>Classement</h1>
+        <img src="images/ArrowIcon.svg" alt="Back" onclick="@OnReturn" />
     </div>
+
+    <div class="rank">
+        <label class="responsive-label" data-short="Pl.">Place</label>
+        <label class="responsive-label" data-short="E.">Equipe</label>
+        <label class="responsive-label" data-short="V.">Victoires</label>
+        <label class="responsive-label hide-small">Défaites</label>
+        <label class="responsive-label" data-short="Pts.">Points</label>
+        <label class="responsive-label hide-small">Palets</label>
+    </div>
+
+    @for(int i =0; i < _rankings?.Count; i++)
+    {
+        string positionClass = i switch
+        {
+            0 => "first",
+            1 => "second",
+            2 => "third",
+            _ => ""
+        };
+
+        <div class="card rank @positionClass">
+            <label>@(i+1)</label>
+            <label>@_rankings[i].Team.Name</label>
+            <label>@_rankings[i].Wins</label>
+            <label class="hide-small">@_rankings[i].Losses</label>
+            <label>@_rankings[i].Points</label>
+            <label class="hide-small">@_rankings[i].Pucks</label>
+        </div>
+    }
 }

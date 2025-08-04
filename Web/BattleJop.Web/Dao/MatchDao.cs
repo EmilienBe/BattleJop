@@ -1,13 +1,14 @@
 ﻿using BattleJop.Web.Enum;
 
-namespace BattleJop.Web.Dto
+namespace BattleJop.Web.Dao
 {
-    public class RoundDto
+    public class MatchDao
     {
         public Guid Id { get; set; }
-        public List<MatchDto> Matchs { get; set; } = [];
         public int RunningOrder { get; set; }
-
         public RoundState State { get; set; }
+
+        public TeamDao FirstTeam { get; set; }
+        public TeamDao SecondTeam { get; set; }
     }
 }

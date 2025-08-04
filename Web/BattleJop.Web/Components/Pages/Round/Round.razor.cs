@@ -8,10 +8,13 @@ namespace BattleJop.Web.Components.Pages.Round
         private RoundDto _round = new();
 
         private bool _isLastRound = true;
+        private bool _isLoading = true;
 
-        protected override async Task OnInitializedAsync()
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             _round = await TournamentApi.GetCurrentRound();
+            _isLoading = false;
+            StateHasChanged();
         }
 
         private void EndRound()

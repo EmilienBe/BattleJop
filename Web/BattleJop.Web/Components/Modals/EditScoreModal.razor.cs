@@ -10,10 +10,10 @@ namespace BattleJop.Web.Components.Modals
 
         [Parameter] public required MatchDto Match { get; set; }
         [Parameter] public EventCallback<Modal> OnModalReady { get; set; }
-        [Parameter] public EventCallback<(int, int)> OnConfirmed { get; set; }
+        [Parameter] public EventCallback<(int, int, int, int)> OnConfirmed { get; set; }
 
-        public int RemainingPuckA { get; set; }
-        public int RemainingPuckB { get; set; }
+        private int RemainingPuckA { get; set; }
+        private int RemainingPuckB { get; set; }
 
         private int EditableScoreA;
         private int EditableScoreB;
@@ -23,6 +23,8 @@ namespace BattleJop.Web.Components.Modals
         {
             EditableScoreA = Match.ScoreA;
             EditableScoreB = Match.ScoreB;
+            RemainingPuckA = Match.RemainingPuckA;
+            RemainingPuckB = Match.RemainingPuckB;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -37,13 +39,13 @@ namespace BattleJop.Web.Components.Modals
         {
             if (IsScoresCorrect() && IsRemainingPuckCorrect())
             {
-                await OnConfirmed.InvokeAsync((EditableScoreA, EditableScoreB));
+                await OnConfirmed.InvokeAsync((EditableScoreA, EditableScoreB, RemainingPuckA, RemainingPuckB));
                 await InternalModal.HideAsync();
             }
         }
         private bool IsScoresCorrect()
         {
-            return (EditableScoreA == 13 || EditableScoreB == 13) && (EditableScoreA is >= 0 and < 13 || EditableScoreB is >= 0 and < 13);
+            return EditableScoreA is >= 0 && EditableScoreB is >= 0;
         }
 
         private bool IsRemainingPuckCorrect()
